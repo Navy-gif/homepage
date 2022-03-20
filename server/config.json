@@ -5,6 +5,6 @@
     "shardCount": 1,
     "domain": "corgi.wtf",
     "http": {
-        "port": 5000
+        "port": 4000
     }
 }
