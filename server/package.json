@@ -1,0 +1,28 @@
+{
+  "name": "clip-server",
+  "version": "0.0.1",
+  "description": "Backend for my personal site",
+  "main": "index.js",
+  "author": "Navy.gif",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "chalk": "^4.0.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "discord.js": "^13.6.0",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "helmet": "^5.0.2",
+    "humanize-duration": "^3.27.1",
+    "moment": "^2.29.1",
+    "node-fetch": "2"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.32.0"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}

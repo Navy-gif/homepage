@@ -1,0 +1,10 @@
+{
+    "logger": {
+        "directory": "/logs/"
+    },
+    "shardCount": 1,
+    "domain": "corgi.wtf",
+    "http": {
+        "port": 5000
+    }
+}

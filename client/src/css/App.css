@@ -1,0 +1,30 @@
+header {
+  height: 4vh;
+  width: 100%;
+  background-color: rgb(115, 192, 255);
+  text-align: center;
+  font-size: calc(7px + 2vmin);
+  color: #474747
+}
+
+.navlink {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.background {
+  background-color: #282c34;
+  height: 96vh;
+}
+
+.foreground {
+  background-color: #acacac;
+  height: inherit;
+  /* width: 90vw; */
+  margin-left: 15%;
+  margin-right: 15%;
+  overflow-y: auto;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
