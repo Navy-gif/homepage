@@ -36,7 +36,8 @@ class Client extends EventEmitter {
         this.ready = false;
         this.shardId = parseInt(env.SHARD_ID);
         this.port = parseInt(env.HTTP_PORT) + this.shardId;
-        this.domain = env.NODE_ENV === 'production' ? env.DOMAIN : 'localhost';
+        this.domain = env.NODE_ENV === 'production' ? env.DOMAIN : `localhost:${this.port}`;
+        this.proto = env.NODE_ENV === 'production' ? 'https' : 'http';
         this.baseDirectory = path.resolve(__dirname, '../..');
         this.mediaDirectory = path.join(this.baseDirectory, opts.media.videos);
 
@@ -110,7 +111,7 @@ class Client extends EventEmitter {
             {
                 clientID: env.DISCORD_ID,
                 clientSecret: env.DISCORD_SECRET,
-                callbackURL: env.AUTH_CALLBACK,
+                callbackURL: `${this.proto}://${this.domain}${env.AUTH_CALLBACK}`,
                 scope: env.DISCORD_SCOPE.split(','),
                 version: 9
             },
