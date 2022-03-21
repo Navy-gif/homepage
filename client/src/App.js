@@ -16,6 +16,7 @@ function App() {
     const [user, updateSession] = useLoginContext();
 
     useEffect(() => {
+        document.title = `Corgi Corner`;
         fetchUser().then(user => {
             if (user) setSession(user, user.accessToken);
             else clearSession();
