@@ -5,10 +5,10 @@ const path = require('path');
 const http = require('http');
 const https = require('https');
 const express = require('express');
-// const session = require('express-session');
-// const MongoStore = require('connect-mongo');
-// const passport = require('passport');
-// const {Strategy} = require('@navy.gif/passport-discord');
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
+const passport = require('passport');
+const { Strategy: DiscordStrategy } = require('@navy.gif/passport-discord');
 const helmet = require('helmet');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
@@ -16,6 +16,7 @@ const cookieParser = require('cookie-parser');
 const { Logger } = require('../util');
 const Intercom = require('./Intercom');
 const Registry = require('./Registry.js');
+const ClipIndex = require('./ClipIndex');
 
 class Client extends EventEmitter {
 
@@ -37,12 +38,14 @@ class Client extends EventEmitter {
         this.port = parseInt(env.HTTP_PORT) + this.shardId;
         this.domain = env.NODE_ENV === 'production' ? env.DOMAIN : 'localhost';
         this.baseDirectory = path.resolve(__dirname, '../..');
+        this.mediaDirectory = path.join(this.baseDirectory, opts.media.videos);
 
         this.registry = new Registry(this);
         // this.mongoDB = new MongoDB(this, this._mongoOpts);
         this.intercom = new Intercom(this);
         // this.permissionsUtil = PermissionsUtil;
         this.logger = new Logger(this);
+        this.clipIndex = new ClipIndex(this, opts);
         this.server = null;
 
         this.key = null;
@@ -54,7 +57,7 @@ class Client extends EventEmitter {
             // Do nothing
         }
 
-        // this.passport = passport;
+        this.passport = passport;
         this.app = express();
 
         // Shouldn't be necessary, everything should come from the same domain: galactic.corgi.wtf
@@ -68,62 +71,62 @@ class Client extends EventEmitter {
             }
         }));
 
-        // this.app.use(helmet({
-        //     contentSecurityPolicy: {
-        //         useDefaults: true,
-        //         directives: {
-        //             'script-src': ["'self'", "'unsafe-inline'"],
-        //             'style-src': ["'self'", "'unsafe-inline'"],
-        //             'img-src': ["'self'", "*.discord.com"],
-        //             'media-src': ["'localhost:5000'"]
-        //         }
-        //     }
-        // }));
+        this.app.use(helmet({
+            contentSecurityPolicy: {
+                useDefaults: true,
+                directives: {
+                    'script-src': ["'self'", "'unsafe-inline'"],
+                    'style-src': ["'self'", "'unsafe-inline'"],
+                    'img-src': ["'self'", "*.discord.com"],
+                    'media-src': ["'self'"]
+                }
+            }
+        }));
 
-        // this.app.use(session({
-        //     cookie: {
-        //         maxAge: 0.5 * 24 * 60 * 60 * 1000, // 12h
-        //         httpOnly: true,
-        //         secure: false, // Cannot use secure without adding certs for the host machine as well, not just the proxy
-        //         domain: this.domain
-        //     },
-        //     secret: env.API_SECRET,
-        //     resave: false,
-        //     saveUninitialized: false,
-        //     store: MongoStore.create({
-        //         mongoUrl: this._mongoOpts.url + env.API_SESSION_STORE,
-        //         collectionName: env.API_SESSION_COLLECTION
-        //     })
-        // }));
+        this.app.use(session({
+            cookie: {
+                maxAge: 0.5 * 24 * 60 * 60 * 1000, // 12h
+                httpOnly: true,
+                secure: false, // Cannot use secure without adding certs for the host machine as well, not just the proxy
+                domain: this.domain
+            },
+            secret: env.API_SECRET,
+            resave: false,
+            saveUninitialized: false,
+            store: MongoStore.create({
+                mongoUrl: this._mongoOpts.url + env.API_SESSION_STORE,
+                collectionName: env.API_SESSION_COLLECTION
+            })
+        }));
 
-        // this.app.use(passport.initialize());
-        // this.app.use(passport.session());
+        this.app.use(passport.initialize());
+        this.app.use(passport.session());
 
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended: true }));
         this.app.use(cookieParser());
 
-        // passport.use(new DiscordStrategy(
-        //     {
-        //         clientID: env.DISCORD_ID,
-        //         clientSecret: env.DISCORD_SECRET,
-        //         callbackURL: env.AUTH_CALLBACK,
-        //         scope: env.DISCORD_SCOPE.split(','),
-        //         version: 9
-        //     },
-        //     (accessToken, refreshToken, profile, callback) => {
-        //         this.logger.info(`${profile.username} is logging in.`);
-        //         callback(null, profile);
-        //     }
-        // ));
+        passport.use(new DiscordStrategy(
+            {
+                clientID: env.DISCORD_ID,
+                clientSecret: env.DISCORD_SECRET,
+                callbackURL: env.AUTH_CALLBACK,
+                scope: env.DISCORD_SCOPE.split(','),
+                version: 9
+            },
+            (accessToken, refreshToken, profile, callback) => {
+                this.logger.info(`${profile.username} is logging in.`);
+                callback(null, profile);
+            }
+        ));
 
-        // passport.serializeUser((user, callback) => {
-        //     callback(null, user);
-        // });
+        passport.serializeUser((user, callback) => {
+            callback(null, user);
+        });
 
-        // passport.deserializeUser((user, callback) => {
-        //     callback(null, user);
-        // });
+        passport.deserializeUser((user, callback) => {
+            callback(null, user);
+        });
 
         this.app.use((req, res, next) => {
             if (!this.ready) return res.status(503).send('Server not ready. Try again in a moment.');
@@ -175,4 +178,4 @@ class Client extends EventEmitter {
 }
 
 module.exports = Client;
-new Client().init();
+new Client(require('../../config.json')).init();
