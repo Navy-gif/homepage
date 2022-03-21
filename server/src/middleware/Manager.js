@@ -141,7 +141,7 @@ class Manager extends EventEmitter {
             HTTP_PORT: opts.http.port,
             API_SECRET: env.API_SECRET,
             // DASHBOARD: opts.dasboardUrl,
-            AUTH_CALLBACK: opts.authCallback,
+            AUTH_CALLBACK: opts.discord.callback,
             DISCORD_SECRET: env.DISCORD_SECRET,
             DISCORD_ID: env.DISCORD_ID,
             DISCORD_SCOPE: opts.discord.scope,
