@@ -21,12 +21,11 @@ export const setSession = (user, token) => {
 };
 
 export const fetchUser = async () => {
-    console.log('fetching user')
     const host = `${proto}://${options.domain}`;
     const res = await fetch(host + '/api/user', {
         credentials: 'include'
         // eslint-disable-next-line no-console
-    }).catch(console.error);
+    }).catch(err => console.error(`Error fetching user:\n${err.stack || err}`));
 
     if (res.status === 200) {
         const user = await res.json();
@@ -113,7 +112,7 @@ export const logout = async () => {
         window.location.replace('/');
     } else console.error('Failed to logout');
 
-}
+};
 
 export const login = () => {
     return new Promise((resolve) => {
@@ -135,4 +134,4 @@ export const login = () => {
     });
 };
 
-export const proto = process.env.NODE_ENV === 'production' ? 'https' : 'http' ;
+export const proto = process.env.NODE_ENV === 'production' ? 'https' : 'http';

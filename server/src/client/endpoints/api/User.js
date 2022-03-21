@@ -22,7 +22,8 @@ class User extends APIEndpoint {
     }
 
     get(req, res) {
-        res.status(200).json(req.user);
+        if (req.user) res.status(200).json(req.user);
+        else res.status(401).end();
     }
 
 }
