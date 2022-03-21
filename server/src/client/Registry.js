@@ -23,12 +23,13 @@ class Registry {
         //const { info, warn } = this.client.manager;
         const { client, endpoints } = this;
 
-        return (async function read(pth) {
+        await (async function read(pth) {
 
             const dir = fs.readdirSync(pth, { withFileTypes: true });
 
             for (let file of dir) {
 
+                if (file.name === 'Home.js') continue; // Need to manually initialise this last as it contains the generic catch-all path, probably a better way of doing this but oh well
                 if (file.isDirectory()) await read(path.join(pth, file.name));
                 else {
                     //info(`Loading endpoint ${file.name}`);
@@ -47,6 +48,10 @@ class Registry {
             }
 
         }(dirPath));
+
+        const Home = require(path.join(dirPath, 'Home.js'));
+        const ep = new Home(client);
+        endpoints.set(ep.name, ep);
 
     }
 
