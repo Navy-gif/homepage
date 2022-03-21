@@ -134,17 +134,17 @@ class Manager extends EventEmitter {
         const { env } = process;
         return {
             NODE_ENV: env.NODE_ENV,
-            // API_DB: env.API_DB,
-            // API_DB_URL: env.API_DB_URL,
-            // API_SESSION_STORE: env.API_SESSION_STORE,
-            // API_SESSION_COLLECTION: env.API_SESSION_COLLECTION,
+            API_DB: env.API_DB,
+            API_DB_URL: env.API_DB_URL,
+            API_SESSION_STORE: env.API_SESSION_STORE,
+            API_SESSION_COLLECTION: env.API_SESSION_COLLECTION,
             HTTP_PORT: opts.http.port,
-            // API_SECRET: env.API_SECRET,
+            API_SECRET: env.API_SECRET,
             // DASHBOARD: opts.dasboardUrl,
-            // AUTH_CALLBACK: opts.authCallback,
-            // DISCORD_SECRET: env.DISCORD_SECRET,
-            // DISCORD_ID: env.DISCORD_ID,
-            // DISCORD_SCOPE: opts.discord.scope,
+            AUTH_CALLBACK: opts.authCallback,
+            DISCORD_SECRET: env.DISCORD_SECRET,
+            DISCORD_ID: env.DISCORD_ID,
+            DISCORD_SCOPE: opts.discord.scope,
             DOMAIN: opts.domain,
             DEBUG: opts.debug
         };
