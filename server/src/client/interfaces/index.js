@@ -1,3 +1,4 @@
 module.exports = {
-    Endpoint: require('./Endpoint.js')
+    Endpoint: require('./Endpoint.js'),
+    APIEndpoint: require('./Api.js'),
 };
