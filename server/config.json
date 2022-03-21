@@ -2,9 +2,19 @@
     "logger": {
         "directory": "/logs/"
     },
+    "media":{ 
+        "videos": "/media",
+        "thumbnails": "/thumbnails"
+    },
     "shardCount": 1,
     "domain": "corgi.wtf",
     "http": {
         "port": 4000
+    },
+    "discord": {
+        "scope": [
+            "identify"
+        ],
+        "callback": "/api/login"
     }
 }
