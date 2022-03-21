@@ -1,4 +1,6 @@
+/* eslint-disable react/no-unescaped-entities */
 import '../css/Home.css';
+import React from 'react';
 
 const Home = () => {
   return (
@@ -26,6 +28,6 @@ const Home = () => {
 
     </div>
   );
-}
+};
 
 export default Home;
