@@ -14,7 +14,7 @@ const Panel = () => {
         formData.set('name', clipname);
         //console.log(selectedFile)
 
-        for(const value of formData.values()) console.log('loop',value);
+        // for(const value of formData.values()) console.log('loop',value);
         const response = await fetch('/api/upload', {
             method: 'POST',
             body: formData,

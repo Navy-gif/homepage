@@ -23,6 +23,13 @@ class ClipIndex extends EventEmitter {
         if (!fs.existsSync(this.videoDirectory)) fs.mkdirSync(this.videoDirectory);
         if (!fs.existsSync(this.thumbnailDirectory)) fs.mkdirSync(this.thumbnailDirectory);
 
+        if (process.platform === 'linux') {
+            // Not a particularly flexible way of doing it this way -- 
+            // shouldn't even need to do this but for some reason it wouldn't find them with the PATH variable
+            ffmpeg.setFfmpegPath('/usr/bin/ffmpeg');
+            ffmpeg.setFfprobePath('/usr/bin/ffprobe');
+        }
+
         this.syncIndex();
 
     }
