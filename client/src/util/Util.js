@@ -21,11 +21,13 @@ export const setSession = (user, token) => {
 };
 
 export const fetchUser = async () => {
-    const host = options.dev ? options.api.baseUrl : '/api';
-    const res = await fetch(host + '/restricted/user', {
+    console.log('fetching user')
+    const host = `${proto}://${options.domain}`;
+    const res = await fetch(host + '/api/user', {
         credentials: 'include'
         // eslint-disable-next-line no-console
     }).catch(console.error);
+
     if (res.status === 200) {
         const user = await res.json();
         user.tag = `${user.username}#${user.discriminator}`;
@@ -100,13 +102,27 @@ const plural = (amt, word) => {
     return `${word}s`;
 };
 
+export const logout = async () => {
+    const response = await fetch('/api/logout', {
+        method: 'POST',
+        credentials: 'include'
+    });
+
+    if (response.status === 200) {
+        clearSession();
+        window.location.replace('/');
+    } else console.error('Failed to logout');
+
+}
+
 export const login = () => {
     return new Promise((resolve) => {
         const popup = window.open(
-            `${options.api.baseUrl}/auth/login`,
+            `${proto}://${options.domain}/api/login`,
             'Discord login',
             'menubar=no,location=no,width=500,height=800,left=500,top=200'
         );
+
         const poller = setInterval(async () => {
             if (popup.closed) {
                 clearInterval(poller);
@@ -115,6 +131,8 @@ export const login = () => {
                 else clearSession();
                 resolve();
             }
-        }, 500);
+        }, 5000);
     });
 };
+
+export const proto = process.env.NODE_ENV === 'production' ? 'https' : 'http' ;
