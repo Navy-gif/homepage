@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import '../css/Media.css';
+
+const thumbnailBase = '/api/thumbnails/';
 
 const ClipEntry = ({ name, filename, uploader, thumbnail, duration, clickHandler }) => {
     
@@ -22,7 +25,7 @@ const ClipEntry = ({ name, filename, uploader, thumbnail, duration, clickHandler
                     <p> <strong>Length</strong>: {duration}</p>
                 </div>
             </div>
-            <img className='thumbnail shadow' alt='Thumbnail' src={`/api/thumbnails/${thumbnail}`}/>
+            <img className='thumbnail shadow' alt='Thumbnail' src={`${thumbnailBase}${thumbnail}`}/>
         </div>
     );
 
@@ -30,11 +33,20 @@ const ClipEntry = ({ name, filename, uploader, thumbnail, duration, clickHandler
 
 const VideoPlayer = ({ refF, video }) => {
     
-    const { filename, name } = video;
+    const { filename, name, thumbnail } = video;
     const source = `/api/clips/${filename}`;
 
     return (
         <div ref={refF} className='video-popup shadow'>
+
+            <Helmet>
+                <meta property='og:url' content={window.location.href} />
+                <meta property='og:image' content={`${thumbnailBase}${thumbnail}`} />
+                <meta property='og:video:type' content='text/html' />
+                <meta property='og:video:url' content={source} />
+                <meta property='og:type' content='video.other' />
+            </Helmet>
+            
             <div>
                 <h1 className='no-margin no-padding'>
                     {name}
