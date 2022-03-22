@@ -41,9 +41,9 @@ const VideoPlayer = ({ refF, video }) => {
 
             <Helmet>
                 <meta property='og:url' content={window.location.href} />
-                <meta property='og:image' content={`${thumbnailBase}${thumbnail}`} />
+                <meta property='og:image' content={`${window.location.origin}${thumbnailBase}${thumbnail}`} />
                 <meta property='og:video:type' content='text/html' />
-                <meta property='og:video:url' content={source} />
+                <meta property='og:video:url' content={`${window.location.origin}${source}`} />
                 <meta property='og:type' content='video.other' />
             </Helmet>
             
