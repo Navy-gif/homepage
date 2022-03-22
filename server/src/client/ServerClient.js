@@ -17,6 +17,8 @@ const { Logger } = require('../util');
 const Intercom = require('./Intercom');
 const Registry = require('./Registry.js');
 const ClipIndex = require('./ClipIndex');
+const Database = require('./Database.js');
+const Users = require('./Users');
 
 class Client extends EventEmitter {
 
@@ -42,9 +44,12 @@ class Client extends EventEmitter {
         this.mediaDirectory = path.join(this.baseDirectory, opts.media.videos);
 
         this.registry = new Registry(this);
-        // this.mongoDB = new MongoDB(this, this._mongoOpts);
+        this.database = new Database(this, this._mongoOpts);
         this.intercom = new Intercom(this);
-        // this.permissionsUtil = PermissionsUtil;
+        this.users = new Users(this, {
+            database: this.database,
+            collection: env.API_USER_COLLECTION
+        });
         this.logger = new Logger(this);
         this.clipIndex = new ClipIndex(this, opts);
         this.server = null;
@@ -60,6 +65,11 @@ class Client extends EventEmitter {
 
         this.passport = passport;
         this.app = express();
+
+        this.app.use((req, res, next) => {
+            if (!this.ready) return res.status(503).send('Server not ready. Try again in a moment.');
+            next();
+        });
 
         // Shouldn't be necessary, everything should come from the same domain: galactic.corgi.wtf
         this.app.use(cors({
@@ -121,18 +131,13 @@ class Client extends EventEmitter {
             }
         ));
 
-        passport.serializeUser((user, callback) => {
-            user.admin = user.id === '132777808362471424';
+        passport.serializeUser(async (user, callback) => {
+            user = await this.users.getOrCreate(user);
             callback(null, user);
         });
 
         passport.deserializeUser((user, callback) => {
             callback(null, user);
-        });
-
-        this.app.use((req, res, next) => {
-            if (!this.ready) return res.status(503).send('Server not ready. Try again in a moment.');
-            next();
         });
 
         this.app.use((req, res, next) => {
@@ -148,12 +153,22 @@ class Client extends EventEmitter {
             next();
         });
 
+        this.users.on('userCreate', (user) => {
+            this.logger.info(`New user created: ${user.tag}`);
+        });
+
+        this.users.on('debug', (msg) => {
+            this.logger.debug(msg);
+        });
+
+
     }
 
     async init() {
 
         this.logger.info('Loading endpoints');
         await this.registry.init();
+        await this.database.init();
         this.logger.debug(this.registry.print);
         const httpOpts = {
             port: this.port,
@@ -168,8 +183,6 @@ class Client extends EventEmitter {
             this.logger.warn(`Missing key and/or cert file, starting HTTP server on port ${this.port}`);
             this.server = http.createServer(httpOpts, this.app).listen(this.port);
         }
-
-        // await this.mongoDB.init().catch((err) => this.logger.error(err.stack));
 
         this.ready = true;
         this.logger.info(`API client built in ${process.env.NODE_ENV} environment`);
