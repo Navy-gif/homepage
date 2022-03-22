@@ -25,10 +25,11 @@ const User = ({user}) => {
 const Restricted = ({user}) => {
     
     if (!user) return '';
+    const { upload, admin } = user.permissions;
     return (
         <div className='flex-container'>
-            {user.admin ? <NavLink className='navlink' to='/panel' >Panel</NavLink> : ''}
-            <NavLink className='navlink' to='/upload' >Upload</NavLink>
+            {admin ? <NavLink className='navlink' to='/panel' >Panel</NavLink> : ''}
+            {upload || admin ? <NavLink className='navlink' to='/upload' >Upload</NavLink>: '' }
             <User user={user} />
         </div>
     );

@@ -1,4 +1,5 @@
 .panel {
     height: inherit;
     width: inherit;
+    flex-direction: column;
 }
