@@ -31,23 +31,11 @@ const Home = () => {
       <section>
         <h3> While you're here... </h3>
         <p>
-          If you have about 15 minutes, see the video on the left. If you have more time, see the one on the right.
+          Check out these <br />
+          <a href='https://youtu.be/CoFjbnvkmQ0'>https://youtu.be/CoFjbnvkmQ0</a> <br />
+          <a href='https://youtu.be/HnZSaKYmP2s'>https://youtu.be/HnZSaKYmP2s</a> <br />
         </p>
-        <div className='flex-container'>
-          <iframe 
-            width="640" height="360"
-            src="https://www.youtube.com/embed/CoFjbnvkmQ0"
-            title="YouTube video player" frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen />
-
-          <iframe
-            width="640" height="360"
-            src="https://www.youtube.com/embed/HnZSaKYmP2s"
-            title="YouTube video player" frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen />
-        </div>
+        
 
       </section>
 

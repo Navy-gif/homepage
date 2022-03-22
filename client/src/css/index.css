@@ -75,3 +75,7 @@ iframe {
   margin: auto;
   margin-top: 10px;
 }
+
+a {
+  color: var(--navy-blue);
+}
