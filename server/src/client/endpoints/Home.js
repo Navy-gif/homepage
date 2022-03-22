@@ -32,7 +32,7 @@ class Home extends Endpoint {
 
     async get(req, res) {
 
-        res.set('Cross-Origin-Embedder-Policy', 'credentialless');
+        res.set('Cross-Origin-Resource-Policy', 'cross-origin');
         const home = path.resolve(this.client.baseDirectory, '../client/build/index.html');
         res.sendFile(home);
 
