@@ -85,8 +85,13 @@ const Media = () => {
             if (response.status !== 200) return console.error('Failed to get clip index');
             const data = await response.json();
             updateIndex(data);
-            if (location.hash) {
-                const video = data.find(vid => `#${vid.name.toLowerCase()}` === location.hash.toLowerCase());
+            // if (location.hash) {
+            //     const video = data.find(vid => `#${vid.name.toLowerCase()}` === location.hash.toLowerCase());
+            //     if (video) setVideo(video);
+            // }
+            const [, , videoname] = location.pathname.toLowerCase().split('/');
+            if (videoname) {
+                const video = data.find(vid => vid.name.toLowerCase() === videoname);
                 if (video) setVideo(video);
             }
         })();
@@ -95,12 +100,22 @@ const Media = () => {
 
     const clickHandler = (video) => {
         setVideo(video);
-        navigate(`#${video.name}`);
+        //navigate(`#${video.name}`);
+        navigate(`/media/${video.name}`);
     };
 
     let i = 0;
     return (
         <div className='media-page'>
+
+            <Helmet>
+                <title>V i d e o s</title>
+                <meta
+                    name="description"
+                    content="Page where I upload clips n stuff"
+                />
+            </Helmet>
+
             {index.map(entry => <ClipEntry clickHandler={() => clickHandler(entry)} key={i++} {...entry} />)}
             {video ? <VideoPlayer refF={ref} video={video} />:''}
         </div>
