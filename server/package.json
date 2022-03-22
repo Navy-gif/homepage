@@ -1,5 +1,5 @@
 {
-  "name": "clip-server",
+  "name": "backend",
   "version": "0.0.1",
   "description": "Backend for my personal site",
   "main": "index.js",

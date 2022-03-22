@@ -1,0 +1,14 @@
+{
+  "name": "homepage",
+  "version": "0.5.0",
+  "description": "My homepage",
+  "main": "server/index.js",
+  "repository": "https://github.com/Navy-gif/homepage.git",
+  "author": "Navy.gif <navydotgif@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "start": "node server/index.js",
+    "build": "cd client && yarn build"
+  }
+}
