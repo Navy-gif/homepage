@@ -1,17 +1,4 @@
-.uploadform {
-    align-items: center;
-}
-
-td {
-    background-color: orange;
-    width: 15vw;
-}
-
-table {
-    margin: auto;
-    padding: 10px
-}
-
-#name {
-    width: 14vw;
+.panel {
+    height: inherit;
+    width: inherit;
 }

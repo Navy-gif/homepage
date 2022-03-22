@@ -26,6 +26,7 @@ code {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  height: inherit;
 }
 
 .no-margin {
@@ -46,4 +47,8 @@ code {
 
 ::-webkit-scrollbar-thumb {
   background: #3b3b3b;
+}
+
+.shadow {
+  box-shadow: 5px 5px 5px rgb(68,68,68);
 }

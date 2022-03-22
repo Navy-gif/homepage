@@ -10,6 +10,11 @@ header {
 .navlink {
   margin-left: 10px;
   margin-right: 10px;
+  color: rgb(0, 0, 0)
+}
+
+.navlink.active {
+  color: #493f41
 }
 
 .background {
@@ -28,4 +33,16 @@ header {
   align-items: center;
   text-align: center;
   /* padding: 10px; */
+}
+
+.logout-btn {
+  font-size: calc(10px + 1vmin);
+  /* margin-left: 1vw; */
+  position: relative;
+  left: 5%;
+}
+
+.user-controls {
+  position: relative;
+  left: 20%;
 }
