@@ -22,6 +22,7 @@ class User extends APIEndpoint {
     }
 
     get(req, res) {
+        // this.logger.debug(`Get user? ${req.user}`);
         if (req.user) res.status(200).json(req.user);
         else res.status(401).end();
     }

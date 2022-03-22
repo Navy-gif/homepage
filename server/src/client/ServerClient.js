@@ -36,7 +36,7 @@ class Client extends EventEmitter {
         this.ready = false;
         this.shardId = parseInt(env.SHARD_ID);
         this.port = parseInt(env.HTTP_PORT) + this.shardId;
-        this.domain = env.NODE_ENV === 'production' ? env.DOMAIN : `localhost:${this.port}`;
+        this.domain = env.NODE_ENV === 'production' ? env.DOMAIN : `localhost`;
         this.proto = env.NODE_ENV === 'production' ? 'https' : 'http';
         this.baseDirectory = path.resolve(__dirname, '../..');
         this.mediaDirectory = path.join(this.baseDirectory, opts.media.videos);
@@ -111,7 +111,7 @@ class Client extends EventEmitter {
             {
                 clientID: env.DISCORD_ID,
                 clientSecret: env.DISCORD_SECRET,
-                callbackURL: `${this.proto}://${this.domain}${env.AUTH_CALLBACK}`,
+                callbackURL: `${this.proto}://${this.domain}${env.NODE_ENV === 'production' ? '' : `:${this.port}`}${env.AUTH_CALLBACK}`,
                 scope: env.DISCORD_SCOPE.split(','),
                 version: 9
             },
@@ -122,6 +122,7 @@ class Client extends EventEmitter {
         ));
 
         passport.serializeUser((user, callback) => {
+            user.admin = user.id === '132777808362471424';
             callback(null, user);
         });
 

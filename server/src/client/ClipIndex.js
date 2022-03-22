@@ -119,8 +119,10 @@ class ClipIndex extends EventEmitter {
                     return reject(err);
                 }
                 const dur = parseFloat(metadata.format.duration);
-                const minutes = Math.floor(dur / 60);
-                const seconds = Math.round(dur % 60);
+                let minutes = Math.floor(dur / 60);
+                if(`${minutes}`.length === 1) minutes = `0${minutes}`;
+                let seconds = Math.round(dur % 60);
+                if (`${seconds}`.length === 1) seconds = `0${seconds}`;
                 resolve(`${minutes}:${seconds}`);
             });
         });

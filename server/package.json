@@ -6,6 +6,10 @@
   "author": "Navy.gif",
   "license": "MIT",
   "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Navy-gif/homepage.git"
+  },
   "dependencies": {
     "@navy.gif/passport-discord": "^0.2.2-b",
     "chalk": "^4.0.0",
