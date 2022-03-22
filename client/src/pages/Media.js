@@ -33,13 +33,15 @@ const ClipEntry = ({ name, filename, uploader, thumbnail, duration, clickHandler
 
 const VideoPlayer = ({ refF, video }) => {
     
-    const { filename, name, thumbnail } = video;
+    const { filename, name, thumbnail, uploader } = video;
     const source = `/api/clips/${filename}`;
 
     return (
         <div ref={refF} className='video-popup shadow'>
 
             <Helmet>
+                <title>{name}</title>
+                <meta name='author' content={uploader.name} />
                 <meta property='og:url' content={window.location.href} />
                 <meta property='og:image' content={`${window.location.origin}${thumbnailBase}${thumbnail}`} />
                 <meta property='og:video:type' content='text/html' />
