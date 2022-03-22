@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import '../css/Media.css';
 
 const ClipEntry = ({ name, filename, uploader, thumbnail, duration, clickHandler }) => {
@@ -6,7 +7,7 @@ const ClipEntry = ({ name, filename, uploader, thumbnail, duration, clickHandler
     const _uploader = `${ uploader.tag } (${ uploader.id })`;
 
     return (
-        <div className='clip-listing' onClick={clickHandler}>
+        <div className='clip-listing shadow' onClick={clickHandler}>
             <div className='flex-container'>
                 <div title={name} id='title' className='listing-element'>
                     <p><strong>Title</strong>: {name}</p>
@@ -21,7 +22,7 @@ const ClipEntry = ({ name, filename, uploader, thumbnail, duration, clickHandler
                     <p> <strong>Length</strong>: {duration}</p>
                 </div>
             </div>
-            <img className='thumbnail' alt='Thumbnail' src={`/api/thumbnails/${thumbnail}`}/>
+            <img className='thumbnail shadow' alt='Thumbnail' src={`/api/thumbnails/${thumbnail}`}/>
         </div>
     );
 
@@ -33,7 +34,7 @@ const VideoPlayer = ({ refF, video }) => {
     const source = `/api/clips/${filename}`;
 
     return (
-        <div ref={refF} className='video-popup'>
+        <div ref={refF} className='video-popup shadow'>
             <div>
                 <h1 className='no-margin no-padding'>
                     {name}
@@ -53,8 +54,14 @@ const Media = () => {
     const [video, setVideo] = useState();
     const ref = useRef(null);
 
+    const location = useLocation();
+    const navigate = useNavigate();
+
     document.addEventListener('mousedown', (event) => {
-        if(ref.current && !ref.current.contains(event.target)) setVideo(null);
+        if (ref.current && !ref.current.contains(event.target)) {
+            setVideo(null);
+            navigate('/media');
+        }
     });
 
     useEffect(() => {
@@ -62,15 +69,25 @@ const Media = () => {
         (async () => {
             const response = await fetch(`/api/clips`);
             if (response.status !== 200) return console.error('Failed to get clip index');
-            updateIndex(await response.json());
+            const data = await response.json();
+            updateIndex(data);
+            if (location.hash) {
+                const video = data.find(vid => `#${vid.name.toLowerCase()}` === location.hash.toLowerCase());
+                if (video) setVideo(video);
+            }
         })();
 
     }, []);
 
+    const clickHandler = (video) => {
+        setVideo(video);
+        navigate(`#${video.name}`);
+    };
+
     let i = 0;
     return (
         <div className='media-page'>
-            {index.map(entry => <ClipEntry clickHandler={() => setVideo(entry)} key={i++} {...entry} />)}
+            {index.map(entry => <ClipEntry clickHandler={() => clickHandler(entry)} key={i++} {...entry} />)}
             {video ? <VideoPlayer refF={ref} video={video} />:''}
         </div>
     );

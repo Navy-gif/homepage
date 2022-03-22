@@ -7,9 +7,33 @@ import Home from './pages/Home';
 import Media from './pages/Media';
 import LoginPage from './pages/Login';
 import Panel from './pages/Panel';
-import { clearSession, fetchUser, setSession } from './util/Util';
+import { clearSession, fetchUser, setSession, logout } from './util/Util';
 import { PrivateRoute } from './Routes/Private';
 import { useLoginContext } from './Structures/UserContext';
+import NotFound from './pages/NotFound';
+import Upload from './pages/Upload';
+
+const User = ({user}) => {
+    return (
+        <div className='flex-container user-controls'>
+            <p className='no-margin'> {user.tag} </p>
+            <button className='logout-btn' onClick={logout}>Logout</button>
+        </div>
+    );
+};
+
+const Restricted = ({user}) => {
+    
+    if (!user) return '';
+    return (
+        <div className='flex-container'>
+            {user.admin ? <NavLink className='navlink' to='/panel' >Panel</NavLink> : ''}
+            <NavLink className='navlink' to='/upload' >Upload</NavLink>
+            <User user={user} />
+        </div>
+    );
+
+};
 
 function App() {
 
@@ -33,7 +57,7 @@ function App() {
                     <div className='flex-container'>
                         <NavLink className='navlink' to='/'>Home</NavLink>
                         <NavLink className='navlink' to='/media'>Media</NavLink>
-                        {user? <NavLink className='navlink' to='/panel' >Panel</NavLink> : null}
+                        <Restricted user={user} />
                     </div>
                 </header>
 
@@ -44,16 +68,15 @@ function App() {
                         <Routes>
 
                             <Route exact path='/' element={<Home />} />
-                            <Route exact path='/media' element={<Media />} />
+                            {/* <Route path='/media'>
+                                <Route path=':name' element={<Media />} />
+                                <Route path='' element={<Media />} />
+                            </Route> */}
+                            <Route path='/media/*' element={<Media />} />
                             <Route exact path='/login' element={<LoginPage />} />
-                            <Route
-                                path='/panel'
-                                element={
-                                    <PrivateRoute>
-                                        <Panel />
-                                    </PrivateRoute>
-                                }
-                            />
+                            <Route path='/upload' element={<PrivateRoute><Upload /></PrivateRoute>} />
+                            <Route path='/panel' element={<PrivateRoute><Panel /></PrivateRoute>} />
+                            <Route path='*' element={<NotFound />} />
 
                         </Routes>
 
