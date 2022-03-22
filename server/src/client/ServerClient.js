@@ -90,7 +90,7 @@ class Client extends EventEmitter {
                     'style-src': ["'self'", "'unsafe-inline'"],
                     'img-src': ["'self'", "*.discord.com"],
                     'media-src': ["'self'"],
-                    'frame-src': ["https:"]
+                    'frame-src': ["youtube.com"]
                 }
             }
         }));
