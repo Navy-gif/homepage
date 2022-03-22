@@ -75,7 +75,7 @@ class Client extends EventEmitter {
         this.app.use(cors({
             origin: (origin, cb) => {
                 if (!origin) return cb(null, true);
-                if (['corgi.wtf', 'localhost'].some((x) => origin.includes(x))) {
+                if (['corgi.wtf', 'localhost', 'youtube.com'].some((x) => origin.includes(x))) {
                     return cb(null, true);
                 }
                 return cb('Unauthorised origin', false);
