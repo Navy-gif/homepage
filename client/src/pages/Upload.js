@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { logout } from "../util/Util";
 import '../css/Upload.css';
 
 const Upload = () => {
@@ -7,8 +6,9 @@ const Upload = () => {
     const [selectedFile, updateSelection] = useState(null);
     const [clipname, updateName] = useState('');
 
-    const submit = async () => {
+    const submit = async ({target: button}) => {
 
+        button.disabled = true;
         const formData = new FormData();
         formData.set('file', selectedFile, selectedFile.name);
         formData.set('name', clipname);
@@ -21,6 +21,9 @@ const Upload = () => {
             credentials: 'include'
         });
 
+        button.disabled = false;
+        updateSelection(null);
+        updateName('');
         console.log(response);
 
     };
@@ -71,10 +74,7 @@ const Upload = () => {
                     : ''}
 
             </div>
-
-            <div>
-                <button onClick={logout}>Logout</button>
-            </div>
+            
         </div>
     );
 
