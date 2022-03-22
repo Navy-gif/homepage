@@ -25,11 +25,11 @@ class Login extends APIEndpoint {
     }
 
     get(req, res) {
-        if (!['132777808362471424'].includes(req.user.id)) {
-            this.logger.info(`${req.user.username}#${req.user.discriminator} (${req.user.id}) attempted login, denying`);
-            req.session.destroy();
-            res.status(401).send('<script>window.close();</script>');
-        }
+        // if (!['132777808362471424'].includes(req.user.id)) {
+        //     this.logger.info(`${req.user.username}#${req.user.discriminator} (${req.user.id}) attempted login, denying`);
+        //     req.session.destroy();
+        //     return res.status(401).send('<script>window.close();</script>');
+        // }
         res.status(200).send('<script>window.close();</script>');
     }
 
