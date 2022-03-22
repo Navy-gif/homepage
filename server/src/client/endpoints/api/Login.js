@@ -43,8 +43,6 @@ class Login extends APIEndpoint {
 
     alreadyLoggedIn(req, res, next) {
 
-        // User is already logged in
-        this.logger.debug(`Checking login: ${req.user}`);
         if (req.user) {
             return res.redirect(`${this.client.domain}/panel`);
         }
@@ -53,7 +51,6 @@ class Login extends APIEndpoint {
     }
 
     fail(req, res) {
-        this.logger.warn(`Attempted login from ${req.ip}`);
         res.status(200).send('<script>window.close();</script>');
     }
 

@@ -36,6 +36,31 @@ const Restricted = ({user}) => {
 
 };
 
+const Link = ({href, children}) => {
+    return (
+        <a
+            href={href}
+            target='_blank'
+            rel='noopener noreferrer'
+        >
+            {children}
+        </a>
+    );
+};
+
+const Socials = () => {
+    return (
+        <div className='flex-container socials'>
+            <h3 className='no-margin'>
+                Links
+            </h3>
+            <Link href='https://github.com/Navy-gif/homepage'>Github</Link>
+            <Link href='https://twitter.com/Navy_gif'>Twitter</Link>
+            <Link href='/invite' >Discord</Link>
+        </div>
+    );
+};
+
 function App() {
 
     const [user, updateSession] = useLoginContext();
@@ -84,6 +109,10 @@ function App() {
                     </div>
 
                 </div>
+
+                <footer>
+                    <Socials />
+                </footer>
             
             </BrowserRouter>
 
