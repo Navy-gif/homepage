@@ -156,6 +156,13 @@ class ClipIndex extends EventEmitter {
         return Object.values(this.index);
     }
 
+    getByTitle(title) {
+        title = title.toLowerCase();
+        for (const entry of Object.values(this.index))
+            if (entry.name.toLowerCase() === title)
+                return entry;
+    }
+
 }
 
 module.exports = ClipIndex;
