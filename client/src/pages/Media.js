@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import '../css/Media.css';
+import ClickDetector from '../util/ClickOutside';
 
 const thumbnailBase = '/api/thumbnails/';
 
@@ -13,16 +14,16 @@ const ClipEntry = ({ name, filename, uploader, thumbnail, duration, clickHandler
         <div className='clip-listing shadow' onClick={clickHandler}>
             <div className='flex-container'>
                 <div title={name} id='title' className='listing-element'>
-                    <p><strong>Title</strong>: {name}</p>
+                    <p><strong>Title</strong>:<br/> {name}</p>
                 </div>
                 <div title={_uploader} id='uploader' className='listing-element'>
-                    <p> <strong>Uploader</strong>: {_uploader }</p>
+                    <p> <strong>Uploader</strong>:<br /> {_uploader }</p>
                 </div>
                 <div title={filename} id='filename' className='listing-element'>
-                    <p> <strong>Filename</strong>: {filename}</p>
+                    <p> <strong>Filename</strong>:<br /> {filename}</p>
                 </div>
                 <div title={duration} id='duration' className='listing-element'>
-                    <p> <strong>Length</strong>: {duration}</p>
+                    <p> <strong>Length</strong>:<br /> {duration}</p>
                 </div>
             </div>
             <img className='thumbnail shadow' alt='Thumbnail' src={`${thumbnailBase}${thumbnail}`}/>
@@ -66,17 +67,9 @@ const Media = () => {
 
     const [index, updateIndex] = useState([]);
     const [video, setVideo] = useState();
-    const ref = useRef(null);
 
     const location = useLocation();
     const navigate = useNavigate();
-
-    document.addEventListener('mousedown', (event) => {
-        if (ref.current && !ref.current.contains(event.target)) {
-            setVideo(null);
-            navigate('/media');
-        }
-    });
 
     useEffect(() => {
 
@@ -85,10 +78,7 @@ const Media = () => {
             if (response.status !== 200) return console.error('Failed to get clip index');
             const data = await response.json();
             updateIndex(data);
-            // if (location.hash) {
-            //     const video = data.find(vid => `#${vid.name.toLowerCase()}` === location.hash.toLowerCase());
-            //     if (video) setVideo(video);
-            // }
+            
             const [, , videoname] = location.pathname.toLowerCase().split('/');
             if (videoname) {
                 const video = data.find(vid => vid.name.toLowerCase() === videoname);
@@ -104,6 +94,11 @@ const Media = () => {
         navigate(`/media/${video.name}`);
     };
 
+    const cb = () => {
+        setVideo(null);
+        navigate('/media');
+    };
+
     let i = 0;
     return (
         <div className='media-page'>
@@ -117,7 +112,9 @@ const Media = () => {
             </Helmet>
 
             {index.map(entry => <ClipEntry clickHandler={() => clickHandler(entry)} key={i++} {...entry} />)}
-            {video ? <VideoPlayer refF={ref} video={video} />:''}
+            
+            {video ? <ClickDetector callback={cb} ><VideoPlayer video={video} /></ClickDetector> : ''}
+        
         </div>
     );
 
