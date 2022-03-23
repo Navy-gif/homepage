@@ -40,7 +40,7 @@ class Home extends Endpoint {
         const { path, hostname, protocol } = req;
         if ((/\/media\/.+/u).test(path)) {
 
-            const title = path.replace('/media/', '');
+            const title = decodeURI(path.replace('/media/', ''));
             const clip = this.client.clipIndex.getByTitle(title);
             const baseUrl = `${protocol}://${hostname}`;
             const clientUrl = `${baseUrl}${path}`;
