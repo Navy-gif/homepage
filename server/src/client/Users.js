@@ -26,7 +26,7 @@ class Users extends EventEmitter {
         const id = user.id || user;
         this.emit('debug', `User perms query for ${id}`);
         const userPartial = await this.database.findOne(this.collection, { id });
-        user = { ...user, ...userPartial };
+        user = { ...this.defaultPermissions, ...userPartial, ...user };
         user.tag = `${user.username}#${user.discriminator}`;
         this.emit('debug', `Result for ${id}: ${JSON.stringify(userPartial)}`);
         if (userPartial) return user;
@@ -42,6 +42,13 @@ class Users extends EventEmitter {
         
         return this.database.find(this.collection, {});
 
+    }
+
+    get defaultPermissions() {
+        return {
+            admin: false,
+            upload: false
+        };
     }
 
 }
