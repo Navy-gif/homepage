@@ -37,12 +37,12 @@ class Home extends Endpoint {
     async get(req, res) {
 
         console.log('\n\n\nPATH', req.path, '\n\n\n');
-        const { path, protocol } = req;
+        const { path } = req;
         if ((/\/media\/.+/u).test(path)) {
 
             const title = decodeURI(path.replace('/media/', ''));
             const clip = this.client.clipIndex.getByTitle(title);
-            const baseUrl = `${protocol}://${this.client.domain}`;
+            const baseUrl = `https://${this.client.domain}`;
             const clientUrl = `${baseUrl}${path}`;
             const thumbnailUrl = `${baseUrl}/thumbnails/${clip.thumbnail}`;
             const clipUrl = `${baseUrl}/clips/${clip.filename}`;
@@ -50,10 +50,10 @@ class Home extends Endpoint {
             console.log(this.index);
             const html = this.index.
                 // replace(`<title>Corgi Corner</title>`, clip.name).
-                replace(`{{META_author}}`, clip.uploader.tag).
-                replace(`{{META_url}}`, clientUrl).
-                replace(`{{META_thumbnail}}`, thumbnailUrl).
-                replace(`{{META_srcUrl}}`, clipUrl);
+                replace(/{{META_author}}/ug, clip.uploader.tag).
+                replace(/{{META_url}}/ug, clientUrl).
+                replace(/{{META_thumbnail}}/ug, thumbnailUrl).
+                replace(/{{META_srcUrl}}/ug, clipUrl);
             console.log(html);
             return res.send(html);
         }
