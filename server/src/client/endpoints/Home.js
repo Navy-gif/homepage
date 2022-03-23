@@ -44,8 +44,8 @@ class Home extends Endpoint {
             const clip = this.client.clipIndex.getByTitle(title);
             const baseUrl = `https://${this.client.domain}`;
             const clientUrl = `${baseUrl}${path}`;
-            const thumbnailUrl = `${baseUrl}/thumbnails/${clip.thumbnail}`;
-            const clipUrl = `${baseUrl}/clips/${clip.filename}`;
+            const thumbnailUrl = `${baseUrl}/api/thumbnails/${clip.thumbnail}`;
+            const clipUrl = `${baseUrl}/api/clips/${clip.filename}`;
 
             console.log(this.index);
             const html = this.index
