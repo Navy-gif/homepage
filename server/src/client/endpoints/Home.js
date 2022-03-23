@@ -48,6 +48,7 @@ class Home extends Endpoint {
             const clipUrl = `${baseUrl}/clips/${clip.filename}`;
 
             const html = this.index.
+                replace(`<title>Corgi Corner</title>`, clip.name).
                 replace(`{{author}}`, clip.uploader.tag).
                 replace(`{{url}}`, clientUrl).
                 replace(`{{thumbnail}}`, thumbnailUrl).
