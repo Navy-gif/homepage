@@ -34,7 +34,7 @@ const Home = () => {
         </p>
 
         <p>
-          <small><small>P.S. corgis r amazing</small></small>
+          <small><small><strong>P.S.</strong> corgis r amazing</small></small>
         </p>
       </section>
       
@@ -46,6 +46,12 @@ const Home = () => {
           <a href='https://youtu.be/HnZSaKYmP2s'>https://youtu.be/HnZSaKYmP2s</a> <br />
         </p>
         
+
+      </section>
+
+      <section className='card shadow'>
+        
+        <small>I would say I made this site with love but my relationship with css is a bit more complicated than that.</small>
 
       </section>
 
