@@ -48,12 +48,12 @@ class Home extends Endpoint {
             const clipUrl = `${baseUrl}/clips/${clip.filename}`;
 
             console.log(this.index);
-            const html = this.index.
+            const html = this.index
                 // replace(`<title>Corgi Corner</title>`, clip.name).
-                replace(/{{META_author}}/ug, clip.uploader.tag).
-                replace(/{{META_url}}/ug, clientUrl).
-                replace(/{{META_thumbnail}}/ug, thumbnailUrl).
-                replace(/{{META_srcUrl}}/ug, clipUrl);
+                .replace(/\{\{META_author\}\}/ug, clip.uploader.tag)
+                .replace(/\{\{META_url\}\}/ug, clientUrl)
+                .replace(/\{\{META_thumbnail\}\}/ug, thumbnailUrl)
+                .replace(/\{\{META_srcUrl\}\}/ug, clipUrl);
             console.log(html);
             return res.send(html);
         }
