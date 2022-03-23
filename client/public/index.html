@@ -5,10 +5,10 @@
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#ffafff" />
-    <meta
+    <!-- <meta
       name="description"
       content="Navy's homepage 😎"
-    />
+    /> -->
     <!-- <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" /> -->
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -25,13 +25,15 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>Corgi Corner</title>
+    <meta name="description" content="{{META_description}}" />
     <meta name='author' content='{{META_author}}' />
+
+    <meta property='og:type' content='video.other' />
     <meta property='og:url' content='{{META_url}}' />
     <!-- <meta property='og:image' content={{META_thumbnail}} /> -->
     <meta property='og:video' content='{{META_url}}' />
     <meta property='og:video:url' content={{META_srcUrl}} />
     <meta property='og:video:type' content='video/mp4' />
-    <meta property='og:type' content='video.other' />
 
   </head>
   <body>
