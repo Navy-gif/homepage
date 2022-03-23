@@ -47,18 +47,20 @@ class Home extends Endpoint {
             const thumbnailUrl = `${baseUrl}/thumbnails/${clip.thumbnail}`;
             const clipUrl = `${baseUrl}/clips/${clip.filename}`;
 
+            console.log(this.index);
             const html = this.index.
-                replace(`<title>Corgi Corner</title>`, clip.name).
-                replace(`{{author}}`, clip.uploader.tag).
-                replace(`{{url}}`, clientUrl).
-                replace(`{{thumbnail}}`, thumbnailUrl).
-                replace(`{{srcUrl}}`, clipUrl);
+                // replace(`<title>Corgi Corner</title>`, clip.name).
+                replace(`{{META_author}}`, clip.uploader.tag).
+                replace(`{{META_url}}`, clientUrl).
+                replace(`{{META_thumbnail}}`, thumbnailUrl).
+                replace(`{{META_srcUrl}}`, clipUrl);
+            console.log(html);
             return res.send(html);
         }
 
         // res.set('Cross-Origin-Resource-Policy', 'cross-origin');
         //const home = path.resolve(this.client.baseDirectory, '../client/build/index.html');
-        res.send(this.index);
+        res.sendFile(this.indexPath);
 
     }
 

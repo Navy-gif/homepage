@@ -34,6 +34,7 @@ const ClipEntry = ({ name, filename, uploader, thumbnail, duration, clickHandler
 
 const VideoPlayer = ({ refF, video }) => {
     
+    // eslint-disable-next-line no-unused-vars
     const { filename, name, thumbnail, uploader } = video;
     const source = `/api/clips/${filename}`;
 
@@ -41,13 +42,13 @@ const VideoPlayer = ({ refF, video }) => {
         <div ref={refF} className='video-popup shadow'>
 
             <Helmet>
-                <title>{name}</title>
+                {/* <title>{name}</title>
                 <meta name='author' content={uploader.name} />
                 <meta property='og:url' content={window.location.href} />
                 <meta property='og:image' content={`${window.location.origin}${thumbnailBase}${thumbnail}`} />
                 <meta property='og:video:type' content='text/html' />
                 <meta property='og:video:url' content={`${window.location.origin}${source}`} />
-                <meta property='og:type' content='video.other' />
+                <meta property='og:type' content='video.other' /> */}
             </Helmet>
             
             <div>
@@ -104,7 +105,7 @@ const Media = () => {
         <div className='media-page'>
 
             <Helmet>
-                <title>V i d e o s</title>
+                {/* <title>V i d e o s</title> */}
                 <meta
                     name="description"
                     content="Page where I upload clips n stuff"
