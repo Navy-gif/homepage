@@ -22,9 +22,9 @@
     width: 90%;
     margin: auto;
     margin-bottom: 15px;
-    /* box-shadow: 5px 5px 5px rgb(68, 68, 68); */
     border-radius: 10px;
     vertical-align: middle;
+    top: 1vh;
 }
 
 .clip-listing:hover {
@@ -44,8 +44,12 @@
     /* max-height: fit-content; */
 }
 
+.listing-element > * {
+    margin: 0px;
+}
+
 #title {
-    max-width: 40%;
+    max-width: 45%;
 }
 
 #uploader {
@@ -57,7 +61,7 @@
 }
 
 #duration {
-    max-width: 10%;
+    max-width: 5%;
 }
 
 .thumbnail {
