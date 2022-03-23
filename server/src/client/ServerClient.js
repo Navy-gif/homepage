@@ -142,11 +142,12 @@ class Client extends EventEmitter {
         });
 
         this.app.use((req, res, next) => {
+            const now = Date.now();
             this.logger.debug(`New request to path ${req.path} || Route: ${req.route}`);
             res.once('finish', () => {
                 this.logger.debug(`Request to ${req.path} finished`);
                 const path = req.route?.path || req.path;
-                this.logger.debug(`response done at path ${path} - ${res.statusCode}`);
+                this.logger.debug(`response done at path ${path} - ${res.statusCode}, took ${Date.now() - now}ms`);
             });
             // console.log(req.headers)
             // if (req.cookies) console.log(req.cookies);

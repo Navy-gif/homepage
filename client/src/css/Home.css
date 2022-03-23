@@ -14,10 +14,29 @@
   color: white;
 } */
 
+.home {
+  /* left: 50%; */
+  /* transform: translate(1%, 0%); */
+}
+
 p {
   text-align: center;
   /* background-color: orange; */
   max-width: 40vw;
   margin: auto;
   margin-top: 15px;
+}
+
+.card {
+  background-color: var(--primary-color);
+  padding: 5px;
+  margin: auto;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  width: 75%;
+  border-radius: 35px;
+}
+
+h3 {
+  margin-top: 1vh;
 }

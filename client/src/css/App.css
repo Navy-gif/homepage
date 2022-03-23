@@ -1,7 +1,9 @@
 header {
   height: 4vh;
   width: 100%;
-  background-color: var(--cyan);
+  /* background-color: var(--cyan); */
+  background-color: var(--orange);
+  /* background-color: #BE3144; */
   text-align: center;
   font-size: calc(7px + 2vmin);
   color: var(--black)
@@ -12,7 +14,7 @@ footer {
   bottom: 0;
   min-height: 10vh;
   width: 100%;
-  background-color: var(--dark-gray);
+  background-color: var(--orange);
   align-items: center;
 }
 
@@ -39,9 +41,9 @@ footer {
 }
 
 .navlink.active {
-  color: var(--primary-color);
+  color: var(--medium-gray);
   border-bottom: 5px solid var(--dark-gray);
-  background-color: var(--shadow);
+  /* background-color: var(--shadow); */
 }
 
 .background {
@@ -50,7 +52,7 @@ footer {
 }
 
 .foreground {
-  background-color: var(--lighter-gray);
+  background-color: var(--uncertain-gray);
   height: inherit;
   /* width: 90vw; */
   margin-left: 15%;
@@ -67,6 +69,9 @@ footer {
   /* margin-left: 1vw; */
   position: relative;
   left: 5%;
+  background-color: var(--light-orange);
+  border-radius: 10px;
+  border: 1px solid var(--dark-gray);
 }
 
 .user-controls {

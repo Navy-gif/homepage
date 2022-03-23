@@ -1,12 +1,10 @@
 :root {
-  --discord-color: rgb(88, 101, 242);
-  --discord-color-darker: rgb(63, 73, 179);
   --primary-font: "Whitney","Helvetica Neue","Helvetica","Arial",sans-serif;
   --primary-color: rgb(238, 238, 238);
-  --gbot-blue: rgb(2, 116, 204);
-  --gbot-orange: rgb(206, 82, 0);
-  --dark-gray: rgb(36, 37, 38);
-  --lighter-gray: rgb(172, 172, 172);
+  /* --dark-gray: rgb(36, 37, 38); */
+  --dark-gray: #2F3C4F;
+  /* --lighter-gray: rgb(172, 172, 172); */
+  --lighter-gray: #506F86;
   --dark-blue: rgb(40, 44, 52);
   --cyan: rgb(96, 191, 255);
   --black: rgb(0,0,0);
@@ -14,6 +12,11 @@
   --dark-cyan: rgb(0, 128, 202);
   --shadow: rgba(0, 0, 0, 0.2);
   --light-shadow: rgba(0, 0, 0, 0.1);
+  --medium-gray: rgb(99, 99, 99);
+  --pink: rgb(255, 175, 255);
+  --uncertain-gray: #a9b0b1;
+  --orange: #DE703C;
+  --light-orange: #FBB040
 }
 
 body {

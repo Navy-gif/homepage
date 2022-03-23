@@ -1,12 +1,21 @@
 /* eslint-disable react/no-unescaped-entities */
 import '../css/Home.css';
 import React from 'react';
+import { Helmet } from 'react-helmet';
 
 const Home = () => {
   return (
     <div className="home">
 
-      <section>
+      <Helmet>
+        <title>About me</title>
+        <meta
+          name="description"
+          content="Page where I upload clips n stuff"
+        />
+      </Helmet>
+
+      <section className='card shadow'>
         <h3> Hi! </h3>
 
         <p>
@@ -16,6 +25,7 @@ const Home = () => {
         <p>
           I like to volunteer some of my free time in online communities both as a moderator as well as a bot developer and maintainer.
           My longest running project is a Discord bot named <a href='https://galactic.corgi.wtf'>Galactic</a> that I was invited to join in 2016 and have been maintaining and developing since.
+          A bunch of my projects are available on my Github, though a bunch of them are also in private repositories for various reasons.
         </p>
 
         <p>
@@ -28,7 +38,7 @@ const Home = () => {
         </p>
       </section>
       
-      <section>
+      <section className='card shadow'>
         <h3> While you're here... </h3>
         <p>
           Check out these <br />
