@@ -37,12 +37,12 @@ class Home extends Endpoint {
     async get(req, res) {
 
         console.log('\n\n\nPATH', req.path, '\n\n\n');
-        const { path, hostname, protocol } = req;
+        const { path, protocol } = req;
         if ((/\/media\/.+/u).test(path)) {
 
             const title = decodeURI(path.replace('/media/', ''));
             const clip = this.client.clipIndex.getByTitle(title);
-            const baseUrl = `${protocol}://${hostname}`;
+            const baseUrl = `${protocol}://${this.client.domain}`;
             const clientUrl = `${baseUrl}${path}`;
             const thumbnailUrl = `${baseUrl}/thumbnails/${clip.thumbnail}`;
             const clipUrl = `${baseUrl}/clips/${clip.filename}`;
