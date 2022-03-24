@@ -11,19 +11,19 @@ const ClipEntry = ({ name, filename, uploader, thumbnail, duration, clickHandler
     const _uploader = `${ uploader.tag } (${ uploader.id })`;
 
     return (
-        <div className='clip-listing shadow' onClick={clickHandler}>
+        <div className='clip-listing clickable shadow' onClick={clickHandler}>
             <div className='flex-container'>
                 <div title={name} id='title' className='listing-element'>
-                    <p><strong>Title</strong>:<br/> {name}</p>
+                    <p><strong>Title</strong><br/> {name}</p>
                 </div>
                 <div title={_uploader} id='uploader' className='listing-element'>
-                    <p> <strong>Uploader</strong>:<br /> {_uploader }</p>
+                    <p> <strong>Uploader</strong><br /> {_uploader }</p>
                 </div>
                 <div title={filename} id='filename' className='listing-element'>
-                    <p> <strong>Filename</strong>:<br /> {filename}</p>
+                    <p> <strong>Filename</strong><br /> {filename}</p>
                 </div>
                 <div title={duration} id='duration' className='listing-element'>
-                    <p> <strong>Length</strong>:<br /> {duration}</p>
+                    <p> <strong>Length</strong><br /> {duration}</p>
                 </div>
             </div>
             <img className='thumbnail shadow' alt='Thumbnail' src={`${thumbnailBase}${thumbnail}`}/>
@@ -42,13 +42,8 @@ const VideoPlayer = ({ refF, video }) => {
         <div ref={refF} className='video-popup shadow'>
 
             <Helmet>
-                {/* <title>{name}</title>
-                <meta name='author' content={uploader.name} />
-                <meta property='og:url' content={window.location.href} />
-                <meta property='og:image' content={`${window.location.origin}${thumbnailBase}${thumbnail}`} />
-                <meta property='og:video:type' content='text/html' />
-                <meta property='og:video:url' content={`${window.location.origin}${source}`} />
-                <meta property='og:type' content='video.other' /> */}
+                <title>{name}</title>
+                <meta name='author' content={uploader.username} />
             </Helmet>
             
             <div>
@@ -105,7 +100,7 @@ const Media = () => {
         <div className='media-page'>
 
             <Helmet>
-                {/* <title>V i d e o s</title> */}
+                <title>V i d e o s</title>
                 <meta
                     name="description"
                     content="Page where I upload clips n stuff"
@@ -114,7 +109,7 @@ const Media = () => {
 
             {index.map(entry => <ClipEntry clickHandler={() => clickHandler(entry)} key={i++} {...entry} />)}
             
-            {video ? <ClickDetector callback={cb} ><VideoPlayer video={video} /></ClickDetector> : ''}
+            {video ? <ClickDetector callback={cb} ><VideoPlayer video={video} /></ClickDetector> : <h1>Nothing here :(</h1>}
         
         </div>
     );

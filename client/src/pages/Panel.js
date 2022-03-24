@@ -2,6 +2,35 @@ import React, { useEffect, useState } from "react";
 import '../css/Panel.css';
 import Dropdown from "../Structures/Dropdown";
 import Popup from "../Structures/Popup";
+import ClickDetector from "../util/ClickOutside";
+
+const thumbnailBase = '/api/thumbnails/';
+const ClipEntry = ({ name, filename, thumbnail, duration, deleteHandler }) => {
+
+
+    return (
+        <div className='clip-listing shadow' >
+            <div className='flex-container'>
+                <div title={name} id='title' className='listing-element'>
+                    <p><strong>Title</strong><br /> {name}</p>
+                </div>
+                <div title={filename} id='filename' className='listing-element'>
+                    <p> <strong>Filename</strong><br /> {filename}</p>
+                </div>
+                <div title={duration} id='duration' className='listing-element'>
+                    <p> <strong>Length</strong><br /> {duration}</p>
+                </div>
+                <div id='delete-btn' className='listing-element'>
+                    <button className='delete-btn clickable' onClick={deleteHandler}>
+                        DELETE
+                    </button>
+                </div>
+            </div>
+            <img className='thumbnail shadow' alt='Thumbnail' src={`${thumbnailBase}${thumbnail}`} />
+        </div>
+    );
+
+};
 
 const User = ({user}) => {
 
@@ -9,8 +38,20 @@ const User = ({user}) => {
     const perms = Object.entries(permissions)
         .map(([name, value]) => { return { name, value }; });
     
+    const [clips, updateClips] = useState(null);
+    
+    useEffect(() => {
+        
+        (async () => {
+            const response = await fetch(`/api/users/${user.id}/clips`);
+            const clips = await response.json();
+            updateClips(clips);
+            console.log(clips);
+        })();
+
+    }, []);
+    
     const onUpdate = (event) => {
-        console.log(permissions);
         const perm = event.target.name;
         const value = event.target.checked;
         permissions[perm] = value;
@@ -20,6 +61,16 @@ const User = ({user}) => {
 
     const onClick = () => {
         togglePopup(!popup);
+    };
+
+    const deleteClip = async (clip) => {
+        console.log(clip);
+        const result = await fetch(`/api/clips/${clip.filename}`, {
+            method: 'DELETE'
+        });
+        if (result.status !== 200) console.error('Clip delete failed');
+        clips.splice(clips.indexOf(clip), 1);
+        updateClips([...clips]);
     };
 
     return (
@@ -32,15 +83,19 @@ const User = ({user}) => {
                 <Dropdown onUpdate={onUpdate} items={perms} name='Permissions' />
             </div>
 
-            <div onClick={onClick} className=''>
-                <span>Manage Uploads</span>
-                <Popup toggle={popup}>
-                    Banger
-                </Popup>
+            <div>
+                <span className='clickable' onClick={onClick} >Manage Uploads</span>
+                <ClickDetector callback={() => {
+                    togglePopup(false);
+                }}>
+                    <Popup toggle={popup}>
+                        {clips?.map(clip => <ClipEntry deleteHandler={() => deleteClip(clip)} key={clip.filename} {...clip} />)}
+                    </Popup>
+                </ClickDetector>
             </div>
 
             <div className=''>
-                <button className='delete-btn'>
+                <button className='delete-btn clickable'>
                     DELETE
                 </button>
             </div>
