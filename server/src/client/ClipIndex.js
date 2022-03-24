@@ -74,6 +74,20 @@ class ClipIndex extends EventEmitter {
 
     }
 
+    delete(filename) {
+
+        const clipEntry = this.index[filename];
+        if (!clipEntry) return false;
+        this.emit('delete', clipEntry);
+
+        delete this.index[filename];
+        fs.unlinkSync(path.join(this.videoDirectory, filename));
+        fs.unlinkSync(path.join(this.thumbnailDirectory, clipEntry.thumbnail));
+        fs.writeFileSync(this.indexDir, JSON.stringify(this.index));
+        return true;
+
+    }
+
     async syncIndex() {
 
         const index = Object.values(this.index);

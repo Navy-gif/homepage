@@ -15,7 +15,7 @@ class Logout extends APIEndpoint {
             ['post', this.post.bind(this)]
         ];
 
-        this.middleware = [CheckAuth];
+        this.middleware = [];
 
         this.init();
 
