@@ -163,6 +163,10 @@ class ClipIndex extends EventEmitter {
                 return entry;
     }
 
+    clipsByUser(id) {
+        return Object.values(this.index).filter((entry) => entry.uploader.id === id);
+    }
+
 }
 
 module.exports = ClipIndex;

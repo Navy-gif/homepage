@@ -16,7 +16,8 @@ class Users extends APIEndpoint {
         ];
 
         this.subpaths = [
-            ['/:id', 'get', this.user.bind(this)]
+            ['/:id', 'get', this.user.bind(this)],
+            ['/:id/clips', 'get', this.clips.bind(this)]
         ];
 
         this.middleware = [CheckAuth, Permissions('admin')];
@@ -38,6 +39,14 @@ class Users extends APIEndpoint {
     }
 
     async user(req, res) {
+
+    }
+
+    async clips(req, res) {
+        
+        const { params: { id } } = req;
+        const clips = this.client.clipIndex.clipsByUser(id);
+        res.status(200).json(clips);
 
     }
 

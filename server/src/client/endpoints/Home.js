@@ -41,20 +41,23 @@ class Home extends Endpoint {
 
             const title = decodeURI(path.replace('/media/', ''));
             const clip = this.client.clipIndex.getByTitle(title);
-            const baseUrl = `https://${this.client.domain}`;
-            const clientUrl = `${baseUrl}${path}`;
-            const thumbnailUrl = `${baseUrl}/api/thumbnails/${clip.thumbnail}`;
-            const clipUrl = `${baseUrl}/api/clips/${clip.filename}`;
+            if (clip) {
+                const baseUrl = `https://${this.client.domain}`;
+                const clientUrl = `${baseUrl}${path}`;
+                const thumbnailUrl = `${baseUrl}/api/thumbnails/${clip.thumbnail}`;
+                const clipUrl = `${baseUrl}/api/clips/${clip.filename}`;
 
-            const html = this.index
-                // .replace(`<title>Corgi Corner</title>`, clip.name)
-                .replace(/\{\{META_description\}\}/ug, 'A website I guess')
-                .replace(/\{\{META_author\}\}/ug, clip.uploader.tag)
-                .replace(/\{\{META_url\}\}/ug, clientUrl)
-                .replace(/\{\{META_thumbnail\}\}/ug, thumbnailUrl)
-                .replace(/\{\{META_srcUrl\}\}/ug, clipUrl);
+                const html = this.index
+                    // .replace(`<title>Corgi Corner</title>`, clip.name)
+                    .replace(/\{\{META_description\}\}/ug, 'A website I guess')
+                    .replace(/\{\{META_author\}\}/ug, clip.uploader.tag)
+                    .replace(/\{\{META_url\}\}/ug, clientUrl)
+                    .replace(/\{\{META_thumbnail\}\}/ug, thumbnailUrl)
+                    .replace(/\{\{META_srcUrl\}\}/ug, clipUrl);
+
+                return res.send(html);
+            }
             
-            return res.send(html);
         }
 
         // res.set('Cross-Origin-Resource-Policy', 'cross-origin');
