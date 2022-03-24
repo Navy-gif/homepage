@@ -4,7 +4,7 @@ import '../css/Structures.css';
 const DropdownItem = ({ onUpdate, id, item: {name, value}}) => {
     
     return (
-        <div className='dropdown-item'>
+        <div className='dropdown-item clickable'>
             <label htmlFor={id}>{name}</label>
             <input
                 id={id}
