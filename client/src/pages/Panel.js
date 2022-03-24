@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import '../css/Panel.css';
 import Dropdown from "../Structures/Dropdown";
+import Popup from "../Structures/Popup";
 
 const User = ({user}) => {
 
@@ -15,21 +16,30 @@ const User = ({user}) => {
         permissions[perm] = value;
     };
 
+    const [popup, togglePopup] = useState(false);
+
+    const onClick = () => {
+        togglePopup(!popup);
+    };
+
     return (
         <div className='user flex-container shadow'>
-            <div className='identity'>
+            <div id='usertag' className=''>
                 {user.tag} ({user.id})
             </div>
 
-            <div className='permissions'>
+            <div className=''>
                 <Dropdown onUpdate={onUpdate} items={perms} name='Permissions' />
             </div>
 
-            <div className='uploads'>
-                Manage Uploads
+            <div onClick={onClick} className=''>
+                <span>Manage Uploads</span>
+                <Popup toggle={popup}>
+                    Banger
+                </Popup>
             </div>
 
-            <div>
+            <div className=''>
                 <button className='delete-btn'>
                     DELETE
                 </button>
@@ -56,9 +66,11 @@ const Panel = () => {
     
     return (
         <div className='panel'>
-            {users.length ? users.map(user => <User key={user.id} user={user} />) : 'No users'}
+            <div className='userlist'>
+                {users.length ? users.map(user => <User key={user.id} user={user} />) : 'No users'}
+            </div>
             
-            <div>
+            <div className='bottom'>
                 <button onClick={() => { console.log(users); }}>
                     save
                 </button>

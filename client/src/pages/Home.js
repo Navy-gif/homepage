@@ -19,7 +19,8 @@ const Home = () => {
         <h3> Hi! </h3>
 
         <p>
-          I'm Navy, or Erik. I'm a 20-something year old software developer from Finland. I don't really do design™, so excuse the oddly themed page (it's also probably unfinished).
+          I'm Navy, or Erik. I'm a 20-something year old software developer from Finland.
+          I don't really do design™, so excuse the oddly themed page (it's also probably unfinished).
         </p>
 
         <p>
@@ -37,6 +38,30 @@ const Home = () => {
           <small><small><strong>P.S.</strong> corgis r amazing</small></small>
         </p>
       </section>
+
+      <section className='card shadow'>
+
+        <h3>Languages, environments, tools etc I can work with</h3>
+
+        <p>
+          I can work with various ...things™ <br />
+          I'm most proficient with JS within the Node environment as it's the one I've worked with the longest,
+          though I can work well within any JS environment now. When working on Node projects I most commonly use MongoDB and MariaDB if needed. Web apis I write using Express.
+        </p>
+
+        <p>
+          I try to containerise most of my latest projects with docker. Metrics I do with Prometheus if suitable.
+        </p>
+
+        <p>
+          I've also dabbled in writing the occasional C# and Java project,
+          I can hold my own when using these languages but would not consider myself proficient with them.
+        </p>
+
+        <br/>
+        <small>I probably forgot something, so chances are this probably isn't everything.</small>
+
+      </section>
       
       <section className='card shadow'>
         <h3> While you're here... </h3>
@@ -51,7 +76,7 @@ const Home = () => {
 
       <section className='card shadow'>
         
-        <small>I would say I made this site with love but my relationship with css is a bit more complicated than that.</small>
+        <small>I would say I made this site with love but my relationship with css is a bit more complicated than that. Made in the MERN stack.</small>
 
       </section>
 
