@@ -74,9 +74,8 @@ code {
   box-shadow: 5px 5px 5px rgb(68,68,68);
 }
 
-iframe {
-  margin: auto;
-  margin-top: 10px;
+.clickable {
+  cursor: pointer;
 }
 
 a {

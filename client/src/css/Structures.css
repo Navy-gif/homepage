@@ -20,7 +20,6 @@
 .dropdown-item {
     display: flex;
     flex-direction: row;
-    cursor: pointer;
     padding-top: 1px;
     padding-bottom: 1px;
     width: inherit;
