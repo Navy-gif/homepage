@@ -1,6 +1,7 @@
 const { APIEndpoint } = require('../../interfaces');
 const fs = require('fs');
 const path = require('path');
+const { CheckAuth, Permissions } = require('../../middleware');
 
 class Clips extends APIEndpoint {
 
@@ -17,7 +18,8 @@ class Clips extends APIEndpoint {
         ];
 
         this.subpaths = [
-            ['/:clip', 'get', this.clip.bind(this)]
+            ['/:clip', 'get', this.clip.bind(this)],
+            ['/:clip', 'delete', this.clipDelete.bind(this), [CheckAuth, Permissions('admin')]]
         ];
 
         this.mediaDir = path.join(this.client.baseDirectory, 'media');
@@ -29,14 +31,14 @@ class Clips extends APIEndpoint {
     async get(req, res) {
 
         const index = this.client.clipIndex.clips;
-        console.log(index);
-        res.send(index);
+        res.json(index);
 
     }
 
     async clip(req, res) {
 
-        const { params: { clip }, headers: { range } } = req;
+        const { params: { clip }, headers: { range, ...rest } } = req;
+        console.log(rest);
         const files = fs.readdirSync(path.join(this.client.baseDirectory, 'media'));
         if (!files.some((file) => file === clip)) return res.status(404).send('Not found');
 
@@ -62,6 +64,13 @@ class Clips extends APIEndpoint {
         //     root: this.mediaDir
         // });
 
+    }
+
+    async clipDelete(req, res) {
+        const { params: { clip }, user } = req;
+        this.logger.info(`${user.tag} is deleting clip ${clip}`);
+        if (this.client.clipIndex.delete(clip)) res.status(200).end();
+        else res.status(404).end();
     }
 
 }
