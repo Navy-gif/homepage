@@ -22,7 +22,7 @@ const Dropdown = ({items, name, onUpdate}) => {
 
     return (
         <div className='dropdown'>
-            {name}
+            <span>{name}</span>
             <div className='dropdown-list'>
                 {items.map(item => {
                     const id = `${name}:${item.name}`;
