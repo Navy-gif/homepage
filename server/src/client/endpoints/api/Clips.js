@@ -39,6 +39,11 @@ class Clips extends APIEndpoint {
 
         const { params: { clip }, headers: { range, ...rest } } = req;
         console.log(rest);
+
+        if (!range) return res.status(200).sendFile(clip, {
+            root: this.mediaDir
+        });
+
         const files = fs.readdirSync(path.join(this.client.baseDirectory, 'media'));
         if (!files.some((file) => file === clip)) return res.status(404).send('Not found');
 
@@ -59,10 +64,6 @@ class Clips extends APIEndpoint {
         const stream = fs.createReadStream(videoPath, { start, end });
         res.status(206).set(headers);
         stream.pipe(res);
-
-        // res.status(200).sendFile(clip, {
-        //     root: this.mediaDir
-        // });
 
     }
 
