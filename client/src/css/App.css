@@ -12,7 +12,7 @@ header {
 footer {
   position: absolute;
   bottom: 0;
-  min-height: 10vh;
+  height: 10vh;
   width: 100%;
   background-color: var(--orange);
   align-items: center;
@@ -48,7 +48,7 @@ footer {
 
 .background {
   background-color: var(--dark-blue);
-  height: 96vh;
+  height: 86vh;
 }
 
 .foreground {
