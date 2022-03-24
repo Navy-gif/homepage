@@ -36,7 +36,6 @@ class Home extends Endpoint {
 
     async get(req, res) {
 
-        console.log('\n\n\nPATH', req.path, '\n\n\n');
         const { path } = req;
         if ((/\/media\/.+/u).test(path)) {
 
@@ -47,7 +46,6 @@ class Home extends Endpoint {
             const thumbnailUrl = `${baseUrl}/api/thumbnails/${clip.thumbnail}`;
             const clipUrl = `${baseUrl}/api/clips/${clip.filename}`;
 
-            console.log(this.index);
             const html = this.index
                 // .replace(`<title>Corgi Corner</title>`, clip.name)
                 .replace(/\{\{META_description\}\}/ug, 'A website I guess')
@@ -55,7 +53,7 @@ class Home extends Endpoint {
                 .replace(/\{\{META_url\}\}/ug, clientUrl)
                 .replace(/\{\{META_thumbnail\}\}/ug, thumbnailUrl)
                 .replace(/\{\{META_srcUrl\}\}/ug, clipUrl);
-            console.log(html);
+            
             return res.send(html);
         }
 
