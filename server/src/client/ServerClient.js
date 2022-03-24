@@ -86,7 +86,7 @@ class Client extends EventEmitter {
             contentSecurityPolicy: {
                 useDefaults: true,
                 directives: {
-                    'script-src': ["'self'", "'unsafe-inline'"],
+                    'script-src': ["'self'"], // "'unsafe-inline'"
                     'style-src': ["'self'", "'unsafe-inline'"],
                     'img-src': ["'self'", "*.discord.com"],
                     'media-src': ["'self'"],
