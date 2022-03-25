@@ -1,7 +1,7 @@
 const fileUpload = require('express-fileupload');
 
 const { APIEndpoint } = require('../../interfaces');
-const { CheckAuth } = require('../../middleware');
+const { CheckAuth, Permissions } = require('../../middleware');
 
 class Login extends APIEndpoint {
 
@@ -17,7 +17,7 @@ class Login extends APIEndpoint {
             ['post', this.upload.bind(this)]
         ];
 
-        this.middleware = [CheckAuth, fileUpload({ limits: { fileSize: 1024*1024*1024, files: 1 } })];
+        this.middleware = [CheckAuth, Permissions('upload'), fileUpload({ limits: { fileSize: 1024*1024*1024, files: 1 } })];
 
         this.init();
 
