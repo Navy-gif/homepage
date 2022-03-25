@@ -39,18 +39,18 @@ const VideoPlayer = ({ refF, video }) => {
     const source = `/api/clips/${filename}`;
 
     return (
-        <div ref={refF} className='video-popup shadow'>
+        <div ref={refF} className='video-popup'>
 
             <Helmet>
                 <title>{name}</title>
                 <meta name='author' content={uploader.username} />
             </Helmet>
             
-            <div>
+            {/* <div>
                 <h1 className='no-margin no-padding'>
                     {name}
                 </h1>
-            </div>
+            </div> */}
             <video className='video-player center' controls >
                 <source src={source} type='video/mp4' />
             </video>
@@ -107,9 +107,9 @@ const Media = () => {
                 />
             </Helmet>
 
-            {index.map(entry => <ClipEntry clickHandler={() => clickHandler(entry)} key={i++} {...entry} />)}
+            {index.length ? index.map(entry => <ClipEntry clickHandler={() => clickHandler(entry)} key={i++} {...entry} />) : <h1>Nothing here :(</h1>}
             
-            {video ? <ClickDetector callback={cb} ><VideoPlayer video={video} /></ClickDetector> : <h1>Nothing here :(</h1>}
+            {video ? <ClickDetector callback={cb} ><VideoPlayer video={video} /></ClickDetector> : null}
         
         </div>
     );

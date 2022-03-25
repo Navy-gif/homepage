@@ -47,7 +47,7 @@ footer {
 }
 
 .background {
-  background-color: var(--dark-blue);
+  background-color: var(--gbot-blue);
   height: 86vh;
 }
 
@@ -77,4 +77,11 @@ footer {
 .user-controls {
   position: relative;
   left: 20%;
+}
+
+@media screen and (max-width: 720px) {
+  .foreground {
+    width: 100vw;
+    margin: 0px;
+  }
 }

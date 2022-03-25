@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Media from './pages/Media';
 import LoginPage from './pages/Login';
 import Panel from './pages/Panel';
+import Mobile from './pages/Mobile';
 import { clearSession, fetchUser, setSession, logout } from './util/Util';
 import { PrivateRoute } from './Routes/Private';
 import { useLoginContext } from './Structures/UserContext';
@@ -99,6 +100,7 @@ function App() {
                                 <Route path='' element={<Media />} />
                             </Route> */}
                             <Route path='/media/*' element={<Media />} />
+                            <Route path='/mobile' element={<Mobile />} />
                             <Route exact path='/login' element={<LoginPage />} />
                             <Route path='/upload' element={<PrivateRoute><Upload /></PrivateRoute>} />
                             <Route path='/panel' element={<PrivateRoute><Panel /></PrivateRoute>} />

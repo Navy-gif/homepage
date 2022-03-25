@@ -38,7 +38,7 @@ const User = ({user}) => {
     const perms = Object.entries(permissions)
         .map(([name, value]) => { return { name, value }; });
     
-    const [clips, updateClips] = useState(null);
+    const [clips, updateClips] = useState([]);
     
     useEffect(() => {
         
@@ -84,12 +84,12 @@ const User = ({user}) => {
             </div>
 
             <div>
-                <span className='clickable' onClick={onClick} >Manage Uploads</span>
                 <ClickDetector callback={() => {
                     togglePopup(false);
                 }}>
+                    <span className='clickable' onClick={onClick} >Manage Uploads</span>
                     <Popup toggle={popup}>
-                        {clips?.map(clip => <ClipEntry deleteHandler={() => deleteClip(clip)} key={clip.filename} {...clip} />)}
+                        {clips.map(clip => <ClipEntry deleteHandler={() => deleteClip(clip)} key={clip.filename} {...clip} />)}
                     </Popup>
                 </ClickDetector>
             </div>

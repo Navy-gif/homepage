@@ -40,3 +40,14 @@ p {
 h3 {
   margin-top: 1vh;
 }
+
+@media screen and (max-width: 720px) {
+  .card {
+    width: 90%;
+  }
+
+  .card > p {
+    margin: 10px;
+    max-width: unset;
+  }
+}
