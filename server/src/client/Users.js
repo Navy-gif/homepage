@@ -31,8 +31,8 @@ class Users extends EventEmitter {
         this.emit('debug', `Result for ${id}: ${JSON.stringify(userPartial)}`);
         if (userPartial) return user;
 
-        user.permissions = {};
-        await this.database.updateOne(this.collection, { id }, { id, tag: user.tag, permissions: {} }, true);
+        user.permissions = this.defaultPermissions;
+        await this.database.updateOne(this.collection, { id }, { id, tag: user.tag, permissions: this.defaultPermissions }, true);
         this.emit('userCreate', user);
         return user;
 
