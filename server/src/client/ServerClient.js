@@ -78,6 +78,7 @@ class Client extends EventEmitter {
                 if (['corgi.wtf', 'localhost'].some((x) => origin.includes(x))) {
                     return cb(null, true);
                 }
+                this.logger.warn(`Unauthorised origin: ${origin}`);
                 return cb('Unauthorised origin', false);
             }
         }));

@@ -26,10 +26,11 @@ class Login extends APIEndpoint {
     async upload(req, res) {
 
         const { body: { name }, files: { file } } = req;
-        if (!file) res.status(400).end();
+        if (!file) return res.status(400).end();
         
+        if (!file.mimetype !== 'video/mp4' || !file.name.endsWith('.mp4')) return res.status(400).send('Invalid type');
+
         this.logger.info(`${req.user.username}#${req.user.discriminator} is uploading ${name}`);
-        
         try {
             await this.client.clipIndex.add(file, name, req.user);
             res.status(200).end();
