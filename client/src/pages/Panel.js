@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import '../css/Panel.css';
 import Dropdown from "../Structures/Dropdown";
 import Popup from "../Structures/Popup";
@@ -104,6 +105,16 @@ const User = ({user}) => {
 
 };
 
+// const ClipManager = () => {
+    
+//     return (
+//         <div>
+            
+//         </div>
+//     );
+
+// };
+
 const Panel = () => {
 
     const [users, setUsers] = useState([]);
@@ -121,9 +132,16 @@ const Panel = () => {
     
     return (
         <div className='panel'>
+
+            <Helmet>
+                <title>Panel</title>
+            </Helmet>
+
             <div className='userlist'>
                 {users.length ? users.map(user => <User key={user.id} user={user} />) : 'No users'}
             </div>
+
+            {/* <ClipManager /> */}
             
             <div className='bottom'>
                 <button onClick={() => { console.log(users); }}>

@@ -26,7 +26,7 @@ const Home = () => {
         <p>
           I like to volunteer some of my free time in online communities both as a moderator as well as a bot developer and maintainer.
           My longest running project is a Discord bot named <a href='https://galactic.corgi.wtf'>Galactic</a> that I was invited to join in 2016 and have been maintaining and developing since.
-          A bunch of my projects are available on my Github, though a bunch of them are also in private repositories for various reasons.
+          A bunch of my projects are available on my Github, though some of them are also in private repositories for various reasons.
         </p>
 
         <p>

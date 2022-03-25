@@ -48,6 +48,7 @@
     height: 50vh;
     background-color: var(--lighter-gray);
     left: 0;
-    top: 7vh;
+    top: 5vh;
     z-index: 1;
+    border-radius: 5px;
 }
