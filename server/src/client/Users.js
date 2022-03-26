@@ -26,7 +26,7 @@ class Users extends EventEmitter {
         const id = user.id || user;
         this.emit('debug', `User perms query for ${id}`);
         const userPartial = await this.database.findOne(this.collection, { id });
-        user = { ...this.defaultPermissions, ...userPartial, ...user };
+        user = { permissions: this.defaultPermissions, ...userPartial, ...user };
         user.tag = `${user.username}#${user.discriminator}`;
         this.emit('debug', `Result for ${id}: ${JSON.stringify(userPartial)}`);
         if (userPartial) return user;
@@ -35,6 +35,25 @@ class Users extends EventEmitter {
         await this.database.updateOne(this.collection, { id }, { id, tag: user.tag, permissions: this.defaultPermissions }, true);
         this.emit('userCreate', user);
         return user;
+
+    }
+
+    async generateToken(user, permissions=[]) {
+
+        const id = Buffer.from(user.id).toString('base64');
+        const ts = Buffer.from(Date.now().toString()).toString('base64');
+        const perm = Buffer.from(permissions.join('.')).toString('base64');
+        const token = `${id}.${ts}.${perm}`;
+
+        user.token = token;
+        await this.database.updateOne(this.collection, { id: user.id }, { token });
+        return token;
+
+    }
+
+    checkToken(token) {
+
+        return this.database.findOne(this.collection, { token });
 
     }
 
