@@ -12,6 +12,7 @@ const { Strategy: DiscordStrategy } = require('@navy.gif/passport-discord');
 const helmet = require('helmet');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const compression = require('compression');
 
 const { Logger } = require('../util');
 const Intercom = require('./Intercom');
@@ -76,6 +77,10 @@ class Client extends EventEmitter {
             req.client = this;
             next();
         });
+
+        this.app.use(compression({
+            
+        }));
 
         // Shouldn't be necessary, everything should come from the same domain: galactic.corgi.wtf
         this.app.use(cors({

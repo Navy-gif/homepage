@@ -35,7 +35,7 @@ class Login extends APIEndpoint {
             return res.status(400).send('Invalid format');
         }
 
-        this.logger.info(`${req.user.username}#${req.user.discriminator} is uploading ${name}`);
+        this.logger.info(`${req.user.tag} is uploading ${name}`);
         try {
             const result = await this.client.clipIndex.add(file, name, req.user);
             res.status(200).json({

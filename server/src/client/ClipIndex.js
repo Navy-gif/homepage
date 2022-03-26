@@ -59,7 +59,7 @@ class ClipIndex extends EventEmitter {
                     duration,
                     uploader: {
                         id: uploader.id,
-                        tag: `${uploader.username}#${uploader.discriminator}`
+                        tag: uploader.tag
                     }
                 };
 
