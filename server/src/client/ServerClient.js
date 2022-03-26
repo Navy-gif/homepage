@@ -116,6 +116,7 @@ class Client extends EventEmitter {
                 domain: this.domain
             },
             secret: env.API_SECRET,
+            name: `corgiCookie`,
             resave: false,
             saveUninitialized: false,
             store: MongoStore.create({

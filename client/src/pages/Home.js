@@ -46,7 +46,8 @@ const Home = () => {
         <p>
           I can work with various ...things™ <br />
           I'm most proficient with JS within the Node environment as it's the one I've worked with the longest,
-          though I can work well within any JS environment now. When working on Node projects I most commonly use MongoDB and MariaDB if needed. Web apis I write using Express.
+          though I can work well within any JS environment now. When working on Node projects I most commonly use MongoDB and MariaDB if needed.
+          Web APIs I write using Express.
         </p>
 
         <p>
@@ -55,7 +56,11 @@ const Home = () => {
 
         <p>
           I've also dabbled in writing the occasional C# and Java project,
-          I can hold my own when using these languages but would not consider myself proficient with them.
+          I can hold my own when using these languages but would not consider myself proficient with them. 
+        </p>
+        
+        <p>
+          Honorary mentions to Lua and Python, both of which I can use well but don't really use much in practise.
         </p>
 
         <br/>

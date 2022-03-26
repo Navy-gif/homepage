@@ -15,6 +15,7 @@ import { useLoginContext } from './Structures/UserContext';
 import NotFound from './pages/NotFound';
 import Upload from './pages/Upload';
 import { UnauthedRoute } from './Routes/Unauthed';
+import { Helmet } from 'react-helmet';
 
 const User = ({user}) => {
     return (
@@ -80,6 +81,10 @@ function App() {
 
     return (
         <div className="app">
+
+            <Helmet>
+                <title>Corgi Corner</title>
+            </Helmet>
 
             <BrowserRouter>
             
