@@ -66,7 +66,7 @@ class ClipIndex extends EventEmitter {
                 fs.writeFileSync(this.indexDir, JSON.stringify(this.index));
                 this.emit('upload', this.index[filename]);
                 
-                resolve();
+                resolve(this.index[filename]);
 
             });
 

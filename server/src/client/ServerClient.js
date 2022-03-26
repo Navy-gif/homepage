@@ -40,6 +40,7 @@ class Client extends EventEmitter {
         this.port = parseInt(env.HTTP_PORT) + this.shardId;
         this.domain = env.NODE_ENV === 'production' ? env.DOMAIN : `localhost`;
         this.proto = env.NODE_ENV === 'production' ? 'https' : 'http';
+        this.baseUrl = `${this.proto}://${this.domain}`;
         this.baseDirectory = path.resolve(__dirname, '../..');
         this.mediaDirectory = path.join(this.baseDirectory, opts.media.videos);
 

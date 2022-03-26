@@ -37,10 +37,13 @@ class Login extends APIEndpoint {
 
         this.logger.info(`${req.user.username}#${req.user.discriminator} is uploading ${name}`);
         try {
-            await this.client.clipIndex.add(file, name, req.user);
-            res.status(200).end();
+            const result = await this.client.clipIndex.add(file, name, req.user);
+            res.status(200).json({
+                url: `${this.client.baseUrl}/media/${name}`,
+                thumbnail: `${this.client.baseUrl}/thumbnails/${result.thumbnail}`
+            });
         } catch (_) { 
-            res.status(500).end();
+            res.status(500).send('Internal error');
         }
 
     }
