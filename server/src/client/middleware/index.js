@@ -1,4 +1,4 @@
 module.exports = {
-    CheckAuth: require('./Auth.js'),
+    ...require('./Auth.js'),
     Permissions: require('./Permissions.js'),
 };
