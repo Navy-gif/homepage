@@ -1,7 +1,7 @@
 const fileUpload = require('express-fileupload');
 
 const { APIEndpoint } = require('../../interfaces');
-const { CheckAuth, Permissions } = require('../../middleware');
+const { CheckSessionOrToken, Permissions } = require('../../middleware');
 
 class Login extends APIEndpoint {
 
@@ -17,7 +17,7 @@ class Login extends APIEndpoint {
             ['post', this.upload.bind(this)]
         ];
 
-        this.middleware = [CheckAuth, Permissions('upload'), fileUpload({ limits: { fileSize: 1024*1024*1024, files: 1 } })];
+        this.middleware = [CheckSessionOrToken, Permissions('upload'), fileUpload({ limits: { fileSize: 1024*1024*1024, files: 1 } })];
 
         this.init();
 
@@ -26,9 +26,14 @@ class Login extends APIEndpoint {
     async upload(req, res) {
 
         const { body: { name }, files: { file } } = req;
-        if (!file) return res.status(400).end();
+        if (!file) return res.status(400).send('Missing file?');
         
-        if (!file.mimetype !== 'video/mp4' || !file.name.endsWith('.mp4')) return res.status(400).send('Invalid type');
+        if (file.mimetype !== 'video/mp4') {
+            return res.status(400).send('Invalid mimetype');
+        }
+        if (!file.name.endsWith('.mp4')) {
+            return res.status(400).send('Invalid format');
+        }
 
         this.logger.info(`${req.user.username}#${req.user.discriminator} is uploading ${name}`);
         try {
