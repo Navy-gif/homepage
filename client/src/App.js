@@ -8,6 +8,7 @@ import Media from './pages/Media';
 import LoginPage from './pages/Login';
 import Panel from './pages/Panel';
 import Mobile from './pages/Mobile';
+import Profile from './pages/Profile';
 import { clearSession, fetchUser, setSession, logout } from './util/Util';
 import { PrivateRoute } from './Routes/Private';
 import { useLoginContext } from './Structures/UserContext';
@@ -17,7 +18,8 @@ import Upload from './pages/Upload';
 const User = ({user}) => {
     return (
         <div className='flex-container user-controls'>
-            <p className='no-margin'> {user.tag} </p>
+            <p className='no-margin'>  </p>
+            <NavLink className='navlink' to='/profile' >{user.tag}</NavLink>
             <button className='logout-btn' onClick={logout}>Logout</button>
         </div>
     );
@@ -104,6 +106,7 @@ function App() {
                             <Route exact path='/login' element={<LoginPage />} />
                             <Route path='/upload' element={<PrivateRoute><Upload /></PrivateRoute>} />
                             <Route path='/panel' element={<PrivateRoute><Panel /></PrivateRoute>} />
+                            <Route path='/profile' element={<PrivateRoute><Profile /></PrivateRoute>} />
                             <Route path='*' element={<NotFound />} />
 
                         </Routes>

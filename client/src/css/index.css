@@ -82,3 +82,10 @@ code {
 a {
   color: var(--navy-blue);
 }
+
+code {
+  background-color: #7777778c;
+  border-radius: 4px;
+  padding-left: 4px;
+  padding-right: 4px;
+}

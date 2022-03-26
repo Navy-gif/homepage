@@ -56,6 +56,7 @@ const Upload = () => {
                                 </td>
                                 <td>
                                     <input
+                                        autoFocus
                                         id='name'
                                         type='text'
                                         onChange={event => updateName(event.target.value)}
