@@ -1,5 +1,4 @@
 const { APIEndpoint } = require('../../interfaces');
-const { CheckAuth } = require('../../middleware');
 
 class Logout extends APIEndpoint {
 

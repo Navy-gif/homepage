@@ -71,6 +71,11 @@ class Client extends EventEmitter {
             next();
         });
 
+        this.app.use((req, res, next) => {
+            req.client = this;
+            next();
+        });
+
         // Shouldn't be necessary, everything should come from the same domain: galactic.corgi.wtf
         this.app.use(cors({
             origin: (origin, cb) => {

@@ -1,5 +1,5 @@
 const { APIEndpoint } = require('../../interfaces');
-const { CheckAuth, Permissions } = require('../../middleware');
+const { CheckSession, Permissions } = require('../../middleware');
 
 class Users extends APIEndpoint {
 
@@ -20,7 +20,7 @@ class Users extends APIEndpoint {
             ['/:id/clips', 'get', this.clips.bind(this)]
         ];
 
-        this.middleware = [CheckAuth, Permissions('admin')];
+        this.middleware = [CheckSession, Permissions('admin')];
 
         this.init();
 

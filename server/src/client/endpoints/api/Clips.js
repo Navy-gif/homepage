@@ -1,7 +1,7 @@
 const { APIEndpoint } = require('../../interfaces');
 const fs = require('fs');
 const path = require('path');
-const { CheckAuth, Permissions } = require('../../middleware');
+const { CheckSession, Permissions } = require('../../middleware');
 
 class Clips extends APIEndpoint {
 
@@ -19,7 +19,7 @@ class Clips extends APIEndpoint {
 
         this.subpaths = [
             ['/:clip', 'get', this.clip.bind(this)],
-            ['/:clip', 'delete', this.clipDelete.bind(this), [CheckAuth, Permissions('admin')]]
+            ['/:clip', 'delete', this.clipDelete.bind(this), [CheckSession, Permissions('admin')]]
         ];
 
         this.mediaDir = path.join(this.client.baseDirectory, 'media');
