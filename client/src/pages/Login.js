@@ -14,10 +14,15 @@ const LoginPage = () => {
 
     const _login = async () => {
 
-        await login();
-        //window.location.replace(`${proto}://${options.domain}/api/login`);
-        updateUser();
-        navigate(from, {replace: true});
+        try {
+            await login();
+            //window.location.replace(`${proto}://${options.domain}/api/login`);
+            updateUser();
+            navigate(from, { replace: true });
+        } catch (_) {
+            // eslint-disable-next-line no-alert
+            alert(`Login timeout`);
+        }
 
     };
 

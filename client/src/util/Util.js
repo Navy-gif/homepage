@@ -115,22 +115,29 @@ export const logout = async () => {
 };
 
 export const login = () => {
-    return new Promise((resolve) => {
+    clearSession();
+    return new Promise((resolve, reject) => {
         const popup = window.open(
             `${proto}://${options.domain}/api/login`,
             'Discord login',
             'menubar=no,location=no,width=500,height=800,left=500,top=200'
         );
 
+        let attempts = 0;
         const poller = setInterval(async () => {
-            if (popup.closed) {
+            const user = await fetchUser();
+            attempts++;
+            if (user) {
+                setSession(user, user.accessToken);
                 clearInterval(poller);
-                const user = await fetchUser();
-                if (user) setSession(user, user.accessToken);
-                else clearSession();
-                resolve();
+                return resolve();
             }
-        }, 5000);
+            if (attempts > 10) {
+                clearInterval(poller);
+                popup.close();
+                return reject(new Error('Login timeout'));
+            }
+        }, 1000);
     });
 };
 

@@ -14,6 +14,7 @@ import { PrivateRoute } from './Routes/Private';
 import { useLoginContext } from './Structures/UserContext';
 import NotFound from './pages/NotFound';
 import Upload from './pages/Upload';
+import { UnauthedRoute } from './Routes/Unauthed';
 
 const User = ({user}) => {
     return (
@@ -103,7 +104,7 @@ function App() {
                             </Route> */}
                             <Route path='/media/*' element={<Media />} />
                             <Route path='/mobile' element={<Mobile />} />
-                            <Route exact path='/login' element={<LoginPage />} />
+                            <Route exact path='/login' element={<UnauthedRoute><LoginPage /></UnauthedRoute>} />
                             <Route path='/upload' element={<PrivateRoute><Upload /></PrivateRoute>} />
                             <Route path='/panel' element={<PrivateRoute><Panel /></PrivateRoute>} />
                             <Route path='/profile' element={<PrivateRoute><Profile /></PrivateRoute>} />

@@ -89,11 +89,12 @@ class Client extends EventEmitter {
             }
         }));
 
+        this.loginScriptNonce = Buffer.from(Date.now().toString()).toString('base64');
         this.app.use(helmet({
             contentSecurityPolicy: {
                 useDefaults: true,
                 directives: {
-                    'script-src': ["'self'"], // "'unsafe-inline'"
+                    'script-src': ["'self'", `'nonce-${this.loginScriptNonce}'`], // "'unsafe-inline'"
                     'style-src': ["'self'", "'unsafe-inline'"],
                     'img-src': ["'self'", "*.discord.com"],
                     'media-src': ["'self'"],
