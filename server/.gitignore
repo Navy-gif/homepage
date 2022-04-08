@@ -2,6 +2,7 @@ node_modules
 logs
 media
 thumbnails
+files
 
 clipIndex.json
 .env
