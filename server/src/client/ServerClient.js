@@ -33,7 +33,7 @@ class Client extends EventEmitter {
         this._debug = env.DEBUG;
         this._mongoOpts = {
             database: env.API_DB,
-            url: env.API_DB_URL
+            host: env.API_DB_HOST
         };
 
         this.ready = false;

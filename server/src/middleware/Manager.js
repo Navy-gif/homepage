@@ -135,7 +135,7 @@ class Manager extends EventEmitter {
         return {
             NODE_ENV: env.NODE_ENV,
             API_DB: env.API_DB,
-            API_DB_URL: env.API_DB_URL,
+            API_DB_HOST: env.API_DB_HOST,
             API_SESSION_STORE: env.API_SESSION_STORE,
             API_SESSION_COLLECTION: env.API_SESSION_COLLECTION,
             API_USER_COLLECTION: env.API_USER_COLLECTION,

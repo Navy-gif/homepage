@@ -12,7 +12,7 @@ class MongoDB {
 
         if (!client) throw new Error('Missing reference to client!');
         if (!config) throw new Error('No config file provided!');
-        if (config && (!config.database || !config.url)) throw new Error('Invalid config file provided!');
+        if (config && (!config.database || !config.host)) throw new Error('Invalid config provided!');
 
         this.config = config;
         this.client = null; // Mongo Client
@@ -29,11 +29,10 @@ class MongoDB {
         this.logger.info('Initializing database connection.');
 
         try {
-            const auth = {
-                username: process.env.API_DB_USERNAME,
-                password: process.env.API_DB_PASSWORD
-            };
-            const client = new MongoClient(this.config.url + this.config.database, { auth });
+            const { API_DB_USERNAME, API_DB_PASSWORD } = process.env;
+            const { database, host } = this.config;
+            const URI = `mongodb://${API_DB_USERNAME}:${API_DB_PASSWORD}@${host}/${database}?authSource=${database}`;
+            const client = new MongoClient(URI, { useNewUrlParser: true });
             this.client = await client.connect();
             this.db = await this.client.db(this.config.database);
             this.logger.info('Database connected.');
