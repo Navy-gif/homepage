@@ -146,7 +146,9 @@ class Manager extends EventEmitter {
             DISCORD_ID: env.DISCORD_ID,
             DISCORD_SCOPE: opts.discord.scope,
             DOMAIN: opts.domain,
-            DEBUG: opts.debug
+            DEBUG: opts.debug,
+            API_DB_USERNAME: env.API_DB_USERNAME,
+            API_DB_PASSWORD: env.API_DB_PASSWORD
         };
     }
 

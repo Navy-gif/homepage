@@ -29,8 +29,11 @@ class MongoDB {
         this.logger.info('Initializing database connection.');
 
         try {
-
-            const client = new MongoClient(this.config.url + this.config.database, { useUnifiedTopology: true });
+            const auth = {
+                username: process.env.API_DB_USERNAME,
+                password: process.env.API_DB_PASSWORD
+            };
+            const client = new MongoClient(this.config.url + this.config.database, { auth });
             this.client = await client.connect();
             this.db = await this.client.db(this.config.database);
             this.logger.info('Database connected.');
