@@ -120,7 +120,7 @@ class Client extends EventEmitter {
             resave: false,
             saveUninitialized: false,
             store: MongoStore.create({
-                mongoUrl: this._mongoOpts.url + env.API_SESSION_STORE,
+                mongoUrl: this.database.URI(env.API_SESSION_STORE),
                 collectionName: env.API_SESSION_COLLECTION
             })
         }));

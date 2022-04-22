@@ -22,6 +22,13 @@ class MongoDB {
         this.logger = new Logger(this);
         this.logger._debug = this.parent._debug;
 
+        const { API_DB_USERNAME, API_DB_PASSWORD } = process.env;
+        this._auth = API_DB_USERNAME ? `${API_DB_USERNAME}:${API_DB_PASSWORD}@` : '';
+
+    }
+
+    URI(database) {
+        return `mongodb://${this._auth}${this.config.host}/${database}?authSource=${database}`;
     }
 
     async init() {
@@ -29,10 +36,7 @@ class MongoDB {
         this.logger.info('Initializing database connection.');
 
         try {
-            const { API_DB_USERNAME, API_DB_PASSWORD } = process.env;
-            const { database, host } = this.config;
-            const URI = `mongodb://${API_DB_USERNAME}:${API_DB_PASSWORD}@${host}/${database}?authSource=${database}`;
-            const client = new MongoClient(URI, { useNewUrlParser: true });
+            const client = new MongoClient(this.URI(this.config.database), { useNewUrlParser: true });
             this.client = await client.connect();
             this.db = await this.client.db(this.config.database);
             this.logger.info('Database connected.');
